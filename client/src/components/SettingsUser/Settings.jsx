@@ -1,6 +1,7 @@
 import { Button, FormGroup, TextField } from '@material-ui/core'
 import React,{useEffect, useState} from 'react'
 import "../../scss/components/SettingsUser/_Settings.scss"
+import Locations from '../LocationStock/DistributionCenters';
 import {useSelector, useDispatch} from "react-redux"
 import Swal from 'sweetalert2'
 import axios from "axios"
@@ -103,12 +104,14 @@ function Settings() {
                 <label id="2">Número</label>
                 <TextField type="number" id ="2" name="number" onChange={(e) => handleChange(e)} value={newUser.number} defaultValue={user.number}></TextField>
                 </div>
+
                 
                <Button className="pass-bu" onClick={changePass}>Cambiar contraseña</Button>
              
          <Button className="save" onClick={handleSubmit}>Guardar Cambios</Button>
          </div>
             </FormGroup> 
+            <div><Locations /></div>
         </div>
     )
 }

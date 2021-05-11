@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import { useDispatch } from "react-redux";
 import DivText from "../ProductCard/DivText";
-import "../../scss/components/AllOrders/_AdminOrderDetail.scss";
 import "../../scss/components/Admin/_UserAccount.scss";
 import { Select, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
