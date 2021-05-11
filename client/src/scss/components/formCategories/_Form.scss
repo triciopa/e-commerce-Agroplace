@@ -1,65 +1,39 @@
-.container-form {
+.categories-form {
   display: flex;
   justify-content: center;
-  background-color: var(--color-gray);
 
   button {
     padding: 6px 12px;
   }
 
-
   .box-form {
-    width: 330px;
-    display: block;
-
-    h3 {
-      padding: 10px 5px 8px 5px;
-      text-align: center;
-      width: 50%;
-      height: 40px;
-      background: #dfebcb;
-      z-index: 1;
-
-      -webkit-border-radius: 6px 6px 0 0;
-      -moz-border-radius: 6px 6px 0 0;
-      border-radius: 6px 6px 0 0;
-
-      -webkit-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.32);
-      -moz-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.32);
-      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.32);
-
-      transform: perspective(15px) rotateX(0.93deg) translateZ(-0.6px);
-        -webkit-transform-origin: 0 0;
-        transform-origin: 0 0;
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
-    }
+    width: 70%;
+    display: flex;
+    flex-direction: row;
   }
 
   .box-options {
-    position: relative;
-    top: -30px;
-    width: 320px;
-    padding: 2.5vh 1vw 1.5vh 1vw;
-    background: #dfebcb;
-    text-align: center;
+    // position: relative;
+    width: 70%;
+    padding: 10px;
     overflow: hidden;
     z-index: 2;
-
-    -webkit-border-top-right-radius: 6px;
-    -webkit-border-bottom-left-radius: 6px;
-    -webkit-border-bottom-right-radius: 6px;
-    -moz-border-radius-topright: 6px;
-    -moz-border-radius-bottomleft: 6px;
-    -moz-border-radius-bottomright: 6px;
-    border-top-right-radius: 6px;
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
-
-    -webkit-box-shadow: 15px 30px 30px rgba(0, 0, 0, 0.32);
-    -moz-box-shadow: 15px 30px 30px rgba(0, 0, 0, 0.32);
-    box-shadow: 15px 30px 30px rgba(0, 0, 0, 0.32);
-
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    justify-content: flex-start;
+    align-items: flex-start;
+    
+    border-radius: 10px;
+    -webkit-box-shadow: 0px -1px 16px 0px rgba(0,0,0,0.38); 
+    box-shadow: 0px -1px 16px 0px rgba(0,0,0,0.38);;
+    -moz-box-shadow: 0px -1px 16px 0px rgba(0, 0, 0, 0.32);
+    form {
+      padding-top: 10px;
+      padding-bottom: 5%;
+      padding-right: 5%;
+      padding-left: 5%;
+    }
     form:nth-child(2) {
       select {
         margin-bottom: 15px;
@@ -69,6 +43,7 @@
 
   .label-category {
     font-size: 18px;
+    margin-top: 0;
   }
 
   .select-category {
@@ -99,5 +74,5 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin: 1.5rem;
+  // margin: 1.5rem;
 }

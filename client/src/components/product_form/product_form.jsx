@@ -52,31 +52,14 @@ function Product_form(props) {
             Consultar
           </Button>
         </NavLink>
-
+      </div>
+      <h1>Administración de categorías</h1>
         <div>
           <CategoriesForm /> 
         </div>
-
-      </div>
     </div>
   );
 }
 
 export default Product_form;
-        // {login.isAdmin ? (
-        //   <div
-        //     id="DistributionCenters"
-        //     onClick={(e) => handleClick(e)}
-        //     style={
-        //       render === "DistributionCenters"
-        //         ? {
-        //             backgroundColor: "var(--color-brand)",
-        //             opacity: "50%",
-        //             color: "var(--color-light)",
-        //           }
-        //         : { backgroundColor: "" }
-        //     }
-        //   >
-        //     Centros de Distribución
-        //   </div>
-        // ) : null}
+

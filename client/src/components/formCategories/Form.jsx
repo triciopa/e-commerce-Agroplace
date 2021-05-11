@@ -50,13 +50,14 @@ function Form() {
   };
 
   return (
-    <div className="container-form">
+    <div className="categories-form">
       <div className="box-form">
-        <h3>Categorias</h3>
+        
         <div className="box-options">
+
           <form onSubmit={handleAddCategory}>
             <label className="label-category">
-              Agregar una nueva Categoria
+              Crear categoría
             </label>
             <br />
 
@@ -75,10 +76,8 @@ function Form() {
               Agregar
             </button>
           </form>
-
           <form>
-            <br />
-            <label className="label-category">Categoria</label>
+            <label className="label-category">Modificar categoria</label>
             <br />
             <select
               className="select-category"
