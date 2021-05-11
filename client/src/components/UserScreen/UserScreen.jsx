@@ -153,7 +153,6 @@ export function UserScreen() {
         ) : render === 'PurchaseHistory' ? (
           <div>
             <OrderHistory />
-            <SendOrder />
           </div>
         ) : render === 'Configuracion' ? (
           <Settings />

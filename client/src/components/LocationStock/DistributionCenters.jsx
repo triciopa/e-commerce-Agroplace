@@ -119,7 +119,7 @@ export default function DistributionCenters() {
   return (
     <div className="distributionCentersContainer">
       <p className="distributionTitle">
-        <b>Centros de Distribución</b>
+        <h2>Centros de Distribución</h2>
       </p>
       {centersLoaded.length > 0 &&
         centersLoaded.map((center) => {
@@ -140,16 +140,18 @@ export default function DistributionCenters() {
           {<FormLocation closeModal={handleClose} />}
         </div>
       </Modal>
-      <div className="appointmentBox"></div>
-      <div>
-        <h3>Mis turnos:</h3>
-        {appointments &&
-          appointments.map((appointment) => (
-            <h4>
-              Fecha: {appointment.date} - Hora: {appointment.time} -Lugar:{' '}
-              {appointment.location.address}
-            </h4>
-          ))}
+      <div className="appointmentBox">
+        <h2>Mis turnos:</h2>
+        <div className="appointmentCards">
+          {appointments &&
+            appointments.map((appointment) => (
+              <div className="appointment">
+                <h4> Fecha: {appointment.date} </h4>
+                <p>Hora: {appointment.time}:00 hs.</p>
+                <p>Lugar: {appointment.location.address}</p>
+              </div>
+            ))}
+        </div>
       </div>
     </div>
   );
