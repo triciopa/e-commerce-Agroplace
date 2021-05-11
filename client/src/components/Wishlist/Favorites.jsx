@@ -31,7 +31,7 @@ function Favorites() {
 
   return (
     <div className="favBoard">
-      <h1 className="title">Favoritos</h1>
+      {/* <h1 className="title">Favoritos</h1> */}
       {favData &&
         favData.map((favorite, i) => (
           <div className="favProducts">

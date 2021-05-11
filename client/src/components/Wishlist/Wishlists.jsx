@@ -86,7 +86,7 @@ const Wishlists = (props) => {
 
   return (
     <div className="allcontent">
-      <h1 className="title">Wishlists</h1>
+      {/* <h1 className="title">Wishlists</h1> */}
       {wishlists &&
         wishlists.map((result, i) => (
           <li key={i} className="wishlist" onClick={(e) => handleList(e)}>

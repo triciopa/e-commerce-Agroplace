@@ -2,42 +2,46 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import '../../scss/components/UserScreen/_UserScreen.scss';
 import { BiLogOut, BiListPlus } from 'react-icons/bi';
+
 import OrderHistory from '../OrderHistory/OrderHistory';
 import AdminPanel from '../Admin/AdminPanel';
-
-import DistributionCenters from '../LocationStock/DistributionCenters';
 import Preferences from '../Wishlist/Preferences';
+import Swal from 'sweetalert2';
+import Settings from '../SettingsUser/Settings';
+import SendOrder from '../SendOrder/SendOrder';
 import { emptyCart } from '../../redux/cartReducer/cartActions';
 import { reset } from '../../redux/iconReducer/iconActions';
 import { LogOut } from '../../redux/loginReducer/loginActions';
 import { getFavs } from '../../redux/wishlistReducer/wishlistActions';
-import Swal from 'sweetalert2';
-import Settings from '../SettingsUser/Settings';
-import axios from "axios"
-import { useHistory } from 'react-router';
-import SendOrder from '../SendOrder/SendOrder';
+
 export function UserScreen() {
-  const [render, setRender] = useState('miCuenta');
+  const [render, setRender] = useState('');
   const login = useSelector((state) => state.loginReducer);
-  
-  const userId = localStorage.getItem("user")
+
+  const userId = localStorage.getItem('user');
 
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
-    const data = localStorage.getItem("render");
+    const data = localStorage.getItem('render');
     if (data) {
       setRender(JSON.parse(data));
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("render", JSON.stringify(render));
-  },[render]);
+    localStorage.setItem('render', JSON.stringify(render));
+  }, [render]);
 
   function handleClick(e) {
     e.preventDefault();
-    setRender(e.target.id);
+
+    if (e.target.id === 'MyAccount') {
+      setRender('');
+    } else {
+      setRender(e.target.id);
+    }
+
     if (e.target.id === 'favorites') {
       let favList = JSON.parse(localStorage.getItem('Fav'));
       dispatch(getFavs(favList));
@@ -52,7 +56,6 @@ export function UserScreen() {
       Swal.fire('Se ha cerrado sesión');
       localStorage.removeItem('user');
     }
-
   };
 
   return (
@@ -76,13 +79,12 @@ export function UserScreen() {
         >
           Mis Compras
         </div>
-        
-        
+
         <div
-          id="Mis envios"
+          id="Preferences"
           onClick={(e) => handleClick(e)}
           style={
-            render === 'Mis envios'
+            render === 'Preferences'
               ? {
                   backgroundColor: 'var(--color-brand)',
                   opacity: '50%',
@@ -91,9 +93,9 @@ export function UserScreen() {
               : { backgroundColor: '' }
           }
         >
-          Mis envios
+          Mis Listas
         </div>
-        
+
         <div
           id="Configuracion"
           onClick={(e) => handleClick(e)}
@@ -109,57 +111,25 @@ export function UserScreen() {
         >
           Configuración
         </div>
-        <div
-          id="Preferences"
-          onClick={(e) => handleClick(e)}
-          style={
-            render === 'Preferences'
-              ? {
-                  backgroundColor: 'var(--color-brand)',
-                  opacity: '50%',
-                  color: 'var(--color-light)',
-                }
-              : { backgroundColor: '' }
-          }
-        >
-          Mis listas
-        </div>
 
-
-        {login.isAdmin ? (
-          <div
-            id="DistributionCenters"
-            onClick={(e) => handleClick(e)}
-            style={
-              render === "DistributionCenters"
-                ? {
-                    backgroundColor: "var(--color-brand)",
-                    opacity: "50%",
-                    color: "var(--color-light)",
-                  }
-                : { backgroundColor: "" }
-            }
-          >
-            Centros de Distribución
-          </div>
-        ) : null}
         {login.isAdmin ? (
           <div
             id="AdminPanel"
             onClick={(e) => handleClick(e)}
             style={
-              render === "AdminPanel"
+              render === 'AdminPanel'
                 ? {
-                    backgroundColor: "var(--color-brand)",
-                    opacity: "50%",
-                    color: "var(--color-light)",
+                    backgroundColor: 'var(--color-brand)',
+                    opacity: '50%',
+                    color: 'var(--color-light)',
                   }
-                : { backgroundColor: "" }
+                : { backgroundColor: '' }
             }
           >
             Administración
           </div>
         ) : null}
+
         <div
           id="LogOut"
           onClick={() => handleLogOut()}
@@ -181,16 +151,15 @@ export function UserScreen() {
         {render === 'MyAccount' ? (
           <h3>Datos de mi cuenta</h3>
         ) : render === 'PurchaseHistory' ? (
-          <OrderHistory />
-        ) : render ==="Configuracion" ?(
-          <Settings  />
-        ) : render ==="Mis envios" ? (
-         <SendOrder/>
-        ) : render ==="Preferences" ? (
-         <Preferences/>
-        ) : render === "DistributionCenters" ? (
-          <DistributionCenters />
-        ) : render === "AdminPanel" ? (
+          <div>
+            <OrderHistory />
+            <SendOrder />
+          </div>
+        ) : render === 'Configuracion' ? (
+          <Settings />
+        ) : render === 'Preferences' ? (
+          <Preferences />
+        ) : render === 'AdminPanel' ? (
           <AdminPanel />
         ) : (
           <div id="welcomeUser">
