@@ -13,18 +13,44 @@ export default function Preferences() {
   }
 
   return (
-    <div className="preferencesPanel">
+    <div className="preferencePanel">
       <Newsletter />
-      <div classname="preferenceTabs">
-        <div id="favorites" onClick={(e) => handleClick(e)}>
+      <div className="preferenceTabs">
+        <div
+          id="favorites"
+          onClick={(e) => handleClick(e)}
+          style={
+            render === 'favorites'
+              ? {
+                  backgroundColor: 'var(--color-brand)',
+                  opacity: '50%',
+                  color: 'var(--color-light)',
+                  fontWeight: '700',
+                }
+              : { backgroundColor: '' }
+          }
+        >
           Favoritos
         </div>
-        <div id="wishlists" onClick={(e) => handleClick(e)}>
+        <div
+          id="wishlists"
+          onClick={(e) => handleClick(e)}
+          style={
+            render === 'wishlists'
+              ? {
+                  backgroundColor: 'var(--color-brand)',
+                  opacity: '50%',
+                  color: 'var(--color-light)',
+                  fontWeight: '700',
+                }
+              : {}
+          }
+        >
           Lista de deseados
         </div>
-        {render === 'favorites' ? <Favorites /> : null}
-        {render === 'wishlists' ? <Wishlists /> : null}
       </div>
+      {render === 'favorites' ? <Favorites /> : null}
+      {render === 'wishlists' ? <Wishlists /> : null}
     </div>
   );
 }
