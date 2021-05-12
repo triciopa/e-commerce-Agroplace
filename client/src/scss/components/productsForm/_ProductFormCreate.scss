@@ -9,7 +9,7 @@ a {
   display: flex;
   flex-direction: column;
   text-align: center;
-  
+
   .input {
     width: 90%;
     height: 30px;
@@ -127,7 +127,7 @@ a {
   align-items: center;
   justify-content: space-around;
   background: var(--color-brand-light);
-  background: -webkit-linear-gradient(
+  /* background: -webkit-linear-gradient(
     to right,
     var(--color-brand),
     var(--color-brand-light)
@@ -136,7 +136,7 @@ a {
     to right,
     var(--color-brand),
     var(--color-brand-light)
-  );
+  ); */
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
