@@ -13,15 +13,19 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     justify-content: space-around;
-    width: 80%;
+    width: 50%;
     margin: 0 auto;
     border: none;
-
+    
     * {
+      border-radius: 10px;
       height: 200px;
       margin: 20px;
-      background-color: var(--color-brand-light-35);
+      background-color: white;
+      -webkit-box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.1);
+      -moz-box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.1);
       box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.1);
+      border: none;
     }
 
     #products {

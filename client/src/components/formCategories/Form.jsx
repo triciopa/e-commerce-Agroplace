@@ -59,15 +59,13 @@ function Form() {
             <label className="label-category">
               Crear categoría
             </label>
-            <br />
-
             <input
               className="input-category"
               value={addCategory}
+              placeholder='Nuevos Fertilizantes...'
               onChange={(e) => setAddCategory(e.target.value)}
             ></input>
-            <br />
-            <br />
+            
             <button
               className="button-putcategory"
               type="submit"
@@ -78,7 +76,6 @@ function Form() {
           </form>
           <form>
             <label className="label-category">Modificar categoria</label>
-            <br />
             <select
               className="select-category"
               type="text"
@@ -122,7 +119,6 @@ function Form() {
                 )}
               </div>
             )}
-            <br />
 
             <div>
               {put ? (

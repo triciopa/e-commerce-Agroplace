@@ -13,7 +13,8 @@ import { FormControl, Button } from '@material-ui/core';
 import Swal from 'sweetalert2';
 import TimeslotForm from '../Timeslots/TimeslotForm'; 
 import { resetTimeslot } from '../../redux/locationReducer/locationActions';
-import swal from 'sweetalert';              
+import swal from 'sweetalert';
+import '../../scss/components/FormPayment/_OptionsLocation.scss';
 
 // styles
 const GreenRadio = withStyles({
@@ -97,7 +98,7 @@ export const OptionsLocation = ({ onCloseModal }) => {
   const radioButtons =
     centers.length !== 0 &&
     centers.map((center) => (
-      <div>
+      <div id="radioButtons">
       <FormControlLabel
         key={center.id}
         value={center.id}
@@ -127,7 +128,7 @@ export const OptionsLocation = ({ onCloseModal }) => {
   }, []);
 
   return (
-    <div>
+    <div id="optionsLocations">
       <FormControl>
         <FormLabel>
           <h1>CENTROS DE DISTRIBUCIÓN</h1>

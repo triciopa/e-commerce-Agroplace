@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import '../../scss/components/Order/_Order.scss';
 import '../../scss/components/formCategories/_Form.scss';
 import FormPayment from '../formPayment/FormPayment';
-import axios from 'axios';
 
 function Order() {
   const product = useSelector((state) => state.cartReducer.cart);  
@@ -28,7 +27,5 @@ function Order() {
     </div>
   );
 }
-/* {total ? <h2>Total ${total}</h2> : ""}
-<Button onClick={(e) => mercadopago(e)}><a href={url}>Continuar Compra</a></Button> */
 
 export default Order;

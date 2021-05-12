@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
+import { Link } from 'react-router-dom';               
+import axios from 'axios';                
+
 
 // Material UI
 import { Button, TextField } from '@material-ui/core';
@@ -141,20 +143,23 @@ const FormPayment = () => {
   return (
     <div>
       <div className="buttons">
-        <Button style={buttons} onClick={() => setModalCenters(!modalCenters)}>
-          Continuar Compra
-        </Button>
+        {/* <Button style={buttons} onClick={() => setModalCenters(!modalCenters)}> */}
+        <Link to="/user/cart/location">
+          <Button style={buttons}>
+            Continuar Compra
+          </Button>
+        </Link>
       </div>
 
-      <Modal open={modalCenters} onClose={() => setModalCenters(!modalCenters)}>
+      {/* <Modal open={modalCenters} onClose={() => setModalCenters(!modalCenters)}>
         <div className="container-payment">
           <OptionsLocation
             modalCenters={modalCenters}
             setModalCenters={setModalCenters}
             onCloseModal={onCloseModal}
           />
-        </div>
-      </Modal>
+        </div>   
+      </Modal> */}
 
       <Modal open={modal} onClose={onCloseModal}>
         <ThemeProvider theme={theme}>

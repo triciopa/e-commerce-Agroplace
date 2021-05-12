@@ -31,6 +31,7 @@ import ResetPassword from './components/Admin/ResetPassword';
 import EmailPassword from './components/Admin/EmailPassword';
 import SuccessfulPaypal from './components/Paypal/Successful';
 import AdminNewsletter from './components/Admin/AdminNewsletter';
+import { OptionsLocation } from './components/formPayment/OptionsLocation';
 
 function App() {
   return (
@@ -40,7 +41,6 @@ function App() {
       <Route exact path="/" component={Home} />
 
       <Switch>
-        {/* <Route exact path="/map" component={MapContainer} /> */}
         <Route exact path="/product/cart" component={Cart} />
         <Route exact path="/catalog" component={Catalog} />
         <Route exact path="/user/login" component={Signup} />
@@ -49,7 +49,6 @@ function App() {
         <Route exact path="/order/completada" component={Successful} />
         <Route exact path="/newsletter/prueba" component={AdminNewsletter} />
         <Route exact path="/:id" component={ProductDetails} />
-        <Route exact path="/order/completada" component={Successful} />
         <Route exact path="/order/complete" component={SuccessfulPaypal} />
 
         <AuthRoute path="/admin" type="admin">
@@ -91,6 +90,7 @@ function App() {
         <AuthRoute path="/user" type="user">
           <Route exact path="/user/orders" component={OrderHistory} />
           <Route exact path="/user/cart/order" component={Order} />
+          <Route exact path="/user/cart/location" component={OptionsLocation} />
           <Route exact path="/user/info" component={UserScreen} />
           <Route exact path="/user/admin" component={ManageAccount} />
           <Route exact path="/user/newsletter" component={Newsletter} />
