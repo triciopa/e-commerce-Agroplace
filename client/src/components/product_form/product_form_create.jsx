@@ -15,8 +15,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
       margin: "40px auto",
-      width: "80%",
-      background: grisPrincipal,
+      width: "70%",
+      borderRadius: "5px",
+      background: "white",
       color: "black",
     },
   },
@@ -286,7 +287,7 @@ export default function Product_form_create(props) {
       </form>
 
       <NavLink to="/user/info">
-        <Button className={classes.button} variant="contained" color="primary" >
+        <Button className={classes.button} variant="contained" color="primary">
           Volver
         </Button>
       </NavLink>
