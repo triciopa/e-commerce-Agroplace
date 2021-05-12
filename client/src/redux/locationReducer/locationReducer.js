@@ -20,7 +20,10 @@ const initialState = {
   allDays: null,
   oneDay: null,
   createdTimeslot: null,
-  unavailableTimeslots: null,
+  unavailableTimeslots: {
+    oneDay: null,
+    allDays: null,
+  },
   appointments: null,
 };
 

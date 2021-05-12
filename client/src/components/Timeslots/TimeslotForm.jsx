@@ -27,9 +27,9 @@ function TimeslotForm() {
   useEffect(() => {                   
     hoursArray = ['9','10','11','12','13','14','15','16','17'];    
     
-    if (unavailableTimeslots?.oneDay && unavailableTimeslots?.oneDay.length)       
+    if (unavailableTimeslots.oneDay && unavailableTimeslots.oneDay.length)       
     {
-      unavailableTimeslots?.oneDay.map(timeslot => { 
+      unavailableTimeslots.oneDay.map(timeslot => { 
         
         hoursArray = hoursArray.filter((h) => timeslot.time != h);
         console.log(hoursArray);
@@ -40,7 +40,7 @@ function TimeslotForm() {
 
     return () => {
     }
-  }, [unavailableTimeslots?.oneDay])
+  }, [unavailableTimeslots.oneDay])
   
 
   useEffect(() => {
@@ -78,9 +78,10 @@ function TimeslotForm() {
 
 
   const handleInputChange = function (e) {
+    console.log(e.target.value)
     let value = e.target.value;
-    value = value.toString()
-    console.log(typeof value)
+    value = value.toString();
+    console.log(typeof value);
 
     setInput({
       ...input,
@@ -122,7 +123,10 @@ function TimeslotForm() {
           { startDate && 
           <div className='time'>Hora:
             { hours && hours.length ?
-            <select value={input.time} onChange={(e) => handleInputChange(e)} name='time'>
+            <select              
+            onChange={handleInputChange} 
+            name='time'
+            >
               {
                 hours.map(h => (
                   <option value={h}>{h}:00 hs</option>

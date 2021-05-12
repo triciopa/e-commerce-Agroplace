@@ -143,15 +143,15 @@ const FormPayment = () => {
   return (
     <div>
       <div className="buttons">
-        {/* <Button style={buttons} onClick={() => setModalCenters(!modalCenters)}> */}
-        <Link to="/user/cart/location">
-          <Button style={buttons}>
+        <Button style={buttons} onClick={() => setModalCenters(!modalCenters)}>
+        {/* <Link to="/user/cart/location"> */}
+          {/* <Button style={buttons}> */}
             Continuar Compra
           </Button>
-        </Link>
+        {/* </Link> */}
       </div>
 
-      {/* <Modal open={modalCenters} onClose={() => setModalCenters(!modalCenters)}>
+      <Modal open={modalCenters} onClose={() => setModalCenters(!modalCenters)}>
         <div className="container-payment">
           <OptionsLocation
             modalCenters={modalCenters}
@@ -159,7 +159,7 @@ const FormPayment = () => {
             onCloseModal={onCloseModal}
           />
         </div>   
-      </Modal> */}
+      </Modal>
 
       <Modal open={modal} onClose={onCloseModal}>
         <ThemeProvider theme={theme}>
