@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { TiWarningOutline } from 'react-icons/ti';
 
 //Redux
 import { clearProduct } from "../../redux/reducerProductForms/actionsProductForms";
@@ -65,12 +66,12 @@ const PromotionsQuery = () => {
     getPromotions();
     dispatch(getPromotion())
     
-    Swal.fire({
-      title: "ALERTA!",
-      text: "En caso de activar la promoción, afectará de manera inmediata y se le enviará un mail de notificación a todos los usuarios. Si desactiva la promoción de igual manera afectará de manera inmediata a todos los productos relacionados pero no se les notificará a los usuarios!",
-      icon: "warning",
-      confirmButtonText: "Entendido",
-    })
+    // Swal.fire({
+    //   title: "ALERTA!",
+    //   text: "En caso de activar la promoción, afectará de manera inmediata y se le enviará un mail de notificación a todos los usuarios. Si desactiva la promoción de igual manera afectará de manera inmediata a todos los productos relacionados pero no se les notificará a los usuarios!",
+    //   icon: "warning",
+    //   confirmButtonText: "Entendido",
+    // })
   }, []);
 
   function sortId(){
@@ -127,54 +128,60 @@ const PromotionsQuery = () => {
   }
 
   return (
-    <div className="containerPromotionsQuery">
-      <form className={classes.root} noValidate autoComplete="off">
-        <TextField
-          id="outlined-basic"
-          label="Buscar por combo/id"
-          variant="outlined"
-          onChange={(e)=>handleInputChange(e.target.value)}
-        />
-      <Button variant="contained" color="primary" style={{ height: "54px",textAlign:"center", justifySelf: "center" }} onClick={() => dispatch(clearProduct())}>
-        <NavLink
-          to="/admin/promotion/form/create"
-          style={{ textDecoration: "none", color: "#fff"}}
-        >
-          Crear
-        </NavLink>
-      </Button>
-      </form>
-
-
-      <div className="containerFilterOrder">
-        <div className="registerFilter" onClick={sortId}>
-          <DivText content="Registro" />
-        </div>
-        <div className="registerFilter" onClick={sortCombo}>
-          <DivText content="Combo" />
-        </div>
-        <div className="stateFilter" onClick={sortDiscountDate}>
-          <DivText content="Descuento %" />
-        </div>
-        <div className="creationFilter" onClick={sortActive}>
-          <DivText content="Estado" />
-        </div>
-        <div className="updateFilter" onClick={() => console.log("Mail")}>
-          <DivText content="Días" />
-        </div>
-        <div className="updateFilter" onClick={() => console.log("Mail")}>
-          <DivText content="Descripción" />
-        </div>
+    <div>
+      <div className='promotionsBanner'>
+        <div className='warningIcon'><TiWarningOutline/></div>
+        <p>En caso de activar la promoción, afectará de manera inmediata y se le enviará un mail de notificación a todos los usuarios. Si desactiva la promoción de igual manera afectará de manera inmediata a todos los productos relacionados pero no se les notificará a los usuarios!</p>
       </div>
+      <div className="containerPromotionsQuery">
+        <form className={classes.root} noValidate autoComplete="off">
+          <TextField
+            id="outlined-basic"
+            label="Buscar por combo/id"
+            variant="outlined"
+            onChange={(e)=>handleInputChange(e.target.value)}
+          />
+        <Button variant="contained" color="primary" style={{ marginRight: 'auto', marginLeft: 0, height: "54px",textAlign:"right", justifySelf: "center" }} onClick={() => dispatch(clearProduct())}>
+          <NavLink
+            to="/admin/promotion/form/create"
+            style={{ textDecoration: "none", color: "#fff"}}
+          >
+            Crear promoción
+          </NavLink>
+        </Button>
+        </form>
 
-      {promotions?.map((promotion) => (
-        <ManagePromotion
-          promotion={promotion}
-          key={promotion.id}
-          stateFilterAfterDelete={stateFilterAfterDelete}
-          stateActiveUpdate={stateActiveUpdate}
-        />
-      ))}
+
+        <div className="containerFilterOrder">
+          <div className="registerFilter" onClick={sortId}>
+            <DivText content="Registro" />
+          </div>
+          <div className="registerFilter" onClick={sortCombo}>
+            <DivText content="Combo" />
+          </div>
+          <div className="stateFilter" onClick={sortDiscountDate}>
+            <DivText content="Descuento %" />
+          </div>
+          <div className="creationFilter" onClick={sortActive}>
+            <DivText content="Estado" />
+          </div>
+          <div className="updateFilter" onClick={() => console.log("Mail")}>
+            <DivText content="Días" />
+          </div>
+          <div className="updateFilter" onClick={() => console.log("Mail")}>
+            <DivText content="Descripción" />
+          </div>
+        </div>
+
+        {promotions?.map((promotion) => (
+          <ManagePromotion
+            promotion={promotion}
+            key={promotion.id}
+            stateFilterAfterDelete={stateFilterAfterDelete}
+            stateActiveUpdate={stateActiveUpdate}
+          />
+        ))}
+      </div>
     </div>
   );
 };

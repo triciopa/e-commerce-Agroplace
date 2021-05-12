@@ -25,7 +25,7 @@ const useStyles = makeStyles({
     fontWeight: 525,
   },
   input: {
-    marginTop: 10,
+    marginTop: 10,                                                                                                                                                                                           
     marginBottom: 10,
     backgroundColor: 'white',
     width: 500,

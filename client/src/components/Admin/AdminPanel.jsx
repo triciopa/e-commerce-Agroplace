@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import AllOrders from '../AllOrders/AllOrders';
 import PromotionsQuery from '../PromotionsForm/PromotionsQuery';
 import ManageAccount from '../Admin/ManageAccount';
 import ProductForm from '../product_form/product_form';
 import '../../scss/components/Admin/_AdminPanel.scss'
+import { RiPlantLine, RiUserSettingsLine } from 'react-icons/ri'
+import { AiOutlineTags } from 'react-icons/ai'
+import { GrDocumentVerified } from 'react-icons/gr'
 
 
 export default function AdminPanel() {
-    const [render, setRender] = useState('buttons');      
-
-    function handleClick(e) {
+    const [render, setRender] = useState('buttons');     
+    const [buttons, setButtons] = useState('buttons');     
+    
+    function handleClick(e, word) {
       e.preventDefault();
-      setRender(e.target.id);
-    };
-    function handleBackClick(e) {
-      e.preventDefault();
-      setRender('buttons');
+      setRender(word);
     };
 
   return (
@@ -23,10 +23,10 @@ export default function AdminPanel() {
         { render === "buttons" ?(
             <div id="buttons">
                 
-                <button id="products" onClick={(e) => handleClick(e)}>Products</button>
-                <button id="orders" onClick={(e) => handleClick(e)}>Orders</button>
-                <button id="promotions" onClick={(e) => handleClick(e)}>Promotions</button>
-                <button id="users" onClick={(e) => handleClick(e)}>Users</button>
+                <button id="products" onClick={(e) => handleClick(e, 'products')}><RiPlantLine/> <p>Products </p></button>
+                <button id="orders" onClick={(e) => handleClick(e, 'orders')}> <GrDocumentVerified/>  <p>Orders</p></button>
+                <button id="promotions" onClick={(e) => handleClick(e, 'promotions')}> <AiOutlineTags/> <p>Promotions</p></button>
+                <button id="users" onClick={(e) => handleClick(e, 'users')}> <RiUserSettingsLine/> <p>Users</p></button>
                 
             </div>) : null
         }
@@ -34,7 +34,7 @@ export default function AdminPanel() {
         <div>
             <div
                 className="backButton"
-                onClick={(e) => {handleBackClick(e)                   
+                onClick={(e) => {setRender('buttons')                   
                 }}
             >
                 {'<'}
@@ -46,7 +46,7 @@ export default function AdminPanel() {
         <div >
             <div
                 className="backButton"
-                onClick={(e) => {handleBackClick(e)                   
+                onClick={(e) => {setRender('buttons')                 
                 }}
             >
                 {'<'}
@@ -58,7 +58,7 @@ export default function AdminPanel() {
         <div>
             <div
                 className="backButton"
-                onClick={(e) => {handleBackClick(e)                   
+                onClick={(e) => {setRender('buttons')                   
                 }}
             >
                 {'<'}
@@ -70,7 +70,7 @@ export default function AdminPanel() {
         <div id="users">
             <div
                 className="backButton"
-                onClick={(e) => {handleBackClick(e)                   
+                onClick={(e) => {setRender('buttons')                  
                 }}
             >
                 {'<'}

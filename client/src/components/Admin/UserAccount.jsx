@@ -171,7 +171,7 @@ const UserAccount = ({ user }) => {
   if (!!user) {
     return (
       <div className="containerOrder">
-        <div className="order inactive">
+        <div className="order inactive" id='orderInactive'>
           <div className="orderId" onClick={toggle}>
             <DivText content={user.id} />
           </div>
