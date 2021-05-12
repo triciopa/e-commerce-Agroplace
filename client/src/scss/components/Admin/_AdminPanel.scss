@@ -1,7 +1,40 @@
 .backButton {
-    color: var(--color-brand);
-    font-family: var(--font-fam);
-    font-weight: 700;
-    font-size: 40px;
-    cursor: pointer;
+  margin-left: 3rem;
+  color: var(--color-brand);
+  font-family: var(--font-fam);
+  font-weight: 700;
+  font-size: 40px;
+  cursor: pointer;
+}
+
+.adminPanel {
+  #buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    justify-content: space-around;
+    width: 80%;
+    margin: 0 auto;
+    border: none;
+
+    * {
+      height: 200px;
+      margin: 20px;
+      background-color: var(--color-brand-light-35);
+      box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    #products {
+      grid-area: 1 / 1 / 1 / 1;
+    }
+    #orders {
+      grid-area: 1 / 2 / 1 / 2;
+    }
+    #orders {
+      grid-area: 2 / 1 / 2 / 1;
+    }
+    #users {
+      grid-area: 2 / 2 / 2 / 2;
+    }
+  }
 }
