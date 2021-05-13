@@ -5,7 +5,8 @@
 .Signup {
   display: flex;
   justify-content: center;
-  margin: 126px 0 4em 0;
+  margin-top: 20vh;
+  min-height: 60vh;
 
   * {
     box-sizing: border-box;
@@ -317,7 +318,7 @@
     text-decoration: none;
   }
 
-  .doble{
+  .doble {
     display: flex;
     align-items: center;
     justify-content: center;

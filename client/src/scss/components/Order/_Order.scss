@@ -1,12 +1,20 @@
 .checkoutCart {
   margin-bottom: 2rem;
   margin-top: 126px;
+
   .order-container {
     margin-bottom: 2rem;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
+    .cart {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
   }
 }
 
