@@ -92,49 +92,59 @@ function Product_form_query(props) {
       <h1>Consultar producto</h1>
       <form>
         <div className="cont-1">
-          <label className="label">Nombre del producto:</label>
+          <label>Nombre del producto:</label>
           <input
             type="text"
             id="name"
             autoComplete="off"
-            placeholder="Nombre . . . "
+            placeholder="Fertilizante Gleba. . . "
             onChange={(e) => setName(e.target.value)}
           />
-        </div>
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          onClick={(e) => {
-            handleQuery(name, e);
-          }}
-        >
-          Consultar producto
-        </Button>
-        <NavLink to="/admin/product/form/update">
           <Button
             className={classes.button}
             variant="contained"
             color="primary"
             onClick={(e) => {
-              handlerPreventButton(e);
+              handleQuery(name, e);
             }}
           >
-            Modificar
+            Consultar producto
           </Button>
-        </NavLink>
+        </div>
+          <div className='productFound'>
+          {product[0]?.name &&
+            product.map((prod) => {
+              return <ProductCard product={prod}></ProductCard>;
+            })}
 
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          onClick={(e) => {
-            handleDelete(e);
-          }}
-        >
-          Eliminar
-        </Button>
-
+          {product && product[0]?.error && (
+            <h1>El producto solicitado no existe</h1>
+          )}
+          </div>
+          {product[0]?.name && 
+            (<div>
+            <NavLink to="/admin/product/form/update">
+              <Button
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                onClick={(e) => {
+                  handlerPreventButton(e);
+                }}
+              >
+                Modificar
+              </Button>
+            </NavLink>
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+            onClick={(e) => {
+              handleDelete(e);
+            }}
+          >
+            Eliminar
+          </Button>
         <NavLink to="/admin/product/form/stock">
           <Button
             className={classes.button}
@@ -147,15 +157,12 @@ function Product_form_query(props) {
             Stock
           </Button>
         </NavLink>
+          </div>
+          )
+          }
 
-        {product[0]?.name &&
-          product.map((prod) => {
-            return <ProductCard product={prod}></ProductCard>;
-          })}
 
-        {product && product[0]?.error && (
-          <h1>El producto solicitado no existe</h1>
-        )}
+
       </form>
       <NavLink to="/user/info">
         <Button
