@@ -43,7 +43,6 @@ const theme = createMuiTheme({
 const buttons = {
   backgroundColor: '#378a19',
   color: '#f7f7f7',
-
   margin: 10,
 };
 
@@ -144,11 +143,8 @@ const FormPayment = () => {
     <div>
       <div className="buttons">
         <Button style={buttons} onClick={() => setModalCenters(!modalCenters)}>
-        {/* <Link to="/user/cart/location"> */}
-          {/* <Button style={buttons}> */}
             Continuar Compra
           </Button>
-        {/* </Link> */}
       </div>
 
       <Modal open={modalCenters} onClose={() => setModalCenters(!modalCenters)}>
@@ -167,6 +163,9 @@ const FormPayment = () => {
             <Typography variant="h5"></Typography>
             <Zoom in={true} timeout={500}>
               <FormControl noValidate autoComplete="off">
+                <div className='paymentForm'>
+
+                <div>
                 <TextField
                   type="text"
                   name="firstName"
@@ -207,6 +206,8 @@ const FormPayment = () => {
                   className={classes.input}
                   required
                 />
+                </div>
+                <div>
                 <TextField
                   type="text"
                   name="capital"
@@ -246,6 +247,8 @@ const FormPayment = () => {
                   className={classes.input}
                   defaultValue={user.email}
                 />
+                </div>
+                </div>
 
                 <h3> Total: ${total}</h3>
 

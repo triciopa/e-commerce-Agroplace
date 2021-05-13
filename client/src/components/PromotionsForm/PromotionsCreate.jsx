@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
       margin: "40px auto",
-      width: "100%",
+      width: "90%",
       borderRadius: "5px",
       background: "white",
       color: "black",
@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "50%",
   },
   button: {
-    // margin: "10px",
     color: "white",
     padding: "10px",
     fontWeight: "bold",

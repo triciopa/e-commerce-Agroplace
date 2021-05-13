@@ -30,8 +30,7 @@ const GreenRadio = withStyles({
 const buttons = {
   backgroundColor: '#378a19',
   color: '#f7f7f7',
-
-  margin: 10,
+  margin: 4,
 };
 
 // Component
