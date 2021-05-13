@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Pages from '../Catalog/Pages';
 import { modifyFav } from '../../redux/iconReducer/iconActions';
 import { getFavs } from '../../redux/wishlistReducer/wishlistActions';
 import '../../scss/components/Wishlists/_Favorites.scss';
 
 function Favorites() {
-  const [favs, setFavs] = useState([]);
   const favData = useSelector((state) => state.wishlistReducer.favorites);
   const dispatch = useDispatch();
 
