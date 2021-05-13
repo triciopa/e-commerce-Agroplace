@@ -4,10 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import "../../scss/components/PromotionsForm/_PromotionsCreate.scss";
 import { postPromotion } from "../../redux/PromotionsFormReducer/actionsPromotionsForm";
-//import axios from 'axios';
 import swal from "sweetalert";
 import { makeStyles } from "@material-ui/core/styles";
-import { TextField } from "@material-ui/core";
+import { TextField, Button } from "@material-ui/core";
 import CancelIcon from "@material-ui/icons/Cancel";
 import {
   getProductName,
@@ -37,6 +36,13 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: grisPrincipal,
     cursor: "pointer",
     borderRadius: "50%",
+  },
+  button: {
+    // margin: "10px",
+    color: "white",
+    padding: "10px",
+    fontWeight: "bold",
+    cursor: "pointer",
   },
 }));
 
@@ -201,7 +207,7 @@ export default function PromotionsCreate(props) {
         <div className="cont-1">
           <TextField
             id="outlined-basic"
-            label="descripción"
+            label="Descripción..."
             placeholder="Agregue la descripción de la promoción..."
             variant="outlined"
             name="description"
@@ -231,7 +237,7 @@ export default function PromotionsCreate(props) {
 
           <TextField
             id="outlined-basic"
-            label="productos"
+            label="Productos..."
             placeholder="Agregue los productos a los que aplicará la promoción..."
             variant="outlined"
             name="product"
@@ -239,13 +245,16 @@ export default function PromotionsCreate(props) {
             onChange={(e) => setName(e.target.value)}
             className={classes.input}
           />
-          <button
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
             onClick={(e) => {
               handleQuery(name, e);
             }}
           >
             Consultar producto
-          </button>
+          </Button>
           {productRender.length &&
             productRender.map((n) => {
               return (
@@ -303,12 +312,26 @@ export default function PromotionsCreate(props) {
               })}
           </div>
 
-          <button type="submit">Crear promocion</button>
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+            type="submit"
+          >
+            Crear promocion
+          </Button>
         </div>
       </form>
 
       <NavLink to="/user/info">
-        <button onClick={() => dispatch(clearProduct())}>Volver</button>
+        <Button
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          onClick={() => dispatch(clearProduct())}
+        >
+          Volver
+        </Button>
       </NavLink>
     </div>
   );
