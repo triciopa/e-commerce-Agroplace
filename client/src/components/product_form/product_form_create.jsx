@@ -9,7 +9,6 @@ import swal from "sweetalert";
 import { makeStyles } from "@material-ui/core/styles";
 import { TextField, CircularProgress, Button } from "@material-ui/core";
 
-const grisPrincipal = "#EFEFEF";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     padding: "10px",
     fontWeight: "bold",
+    cursor: 'pointer',
   },
 }));
 
@@ -163,7 +163,7 @@ export default function Product_form_create(props) {
             onChange={handleChange}
             className={classes.input}
           />
-
+          {/* <div className='skuPrice'> */}
           <TextField
             id="outlined-basic"
             label="SKU"
@@ -189,6 +189,7 @@ export default function Product_form_create(props) {
             onChange={handleChange}
             className={classes.input}
           />
+          {/* </div> */}
 
           <TextField
             id="outlined-basic"

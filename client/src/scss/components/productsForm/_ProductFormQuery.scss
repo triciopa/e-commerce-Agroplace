@@ -11,11 +11,17 @@
     border-radius: 15px;
     background: white;
     margin-top: 10vh;
+    margin-bottom: 3vh;
+    label{
+      font-size: 25px;
+    }
     input{
       border: none;
       border-radius: 0;
       border-bottom: 1px solid var(--color-dark);
-      font-size: 25px;
+      font-size: 20px;
+      margin-top: 3%;
+      cursor: text;
       &:focus {
         border: none;
         border-bottom: 2px solid var(--color-brand);
