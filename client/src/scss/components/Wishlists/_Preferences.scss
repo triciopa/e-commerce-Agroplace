@@ -1,11 +1,12 @@
 .preferencePanel {
+  margin-top: 2vh;
   .preferenceTabs {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     color: var(--color-black);
     font-weight: 500;
-    margin: 2em 4em 3em 11em;
+    margin: 2em 10% 3em 13%;
     border-bottom: 2px solid var(--color-brand-75);
     width: 75%;
 
