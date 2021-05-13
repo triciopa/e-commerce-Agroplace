@@ -1,11 +1,11 @@
 .infoContainer {
   margin-top: 10vh;
+  min-height: 60vh;
   padding: 40px 0;
   background-color: var(--color-gray);
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  min-height: 60vh;
 
   .selectScreen {
     background-color: white;

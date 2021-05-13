@@ -17,15 +17,16 @@
     -webkit-box-shadow: 5px 4px 11px 0px rgba(0, 0, 0, 0.24);
     box-shadow: 5px 4px 11px 0px rgba(0, 0, 0, 0.24);
     height: 150px;
-    width: 90%;
-    margin-left: 20px;
+    width: 75%;
+    // margin-left: 20px;
     // height: max-content;
     :link {
       display: flex;
       flex-direction: row;
       text-decoration: none;
       .deleteButton {
-        margin-left: 50%;
+        float: right;
+        margin: 0 0 0 48vw;
         margin-top: 0.5%;
       }
     }

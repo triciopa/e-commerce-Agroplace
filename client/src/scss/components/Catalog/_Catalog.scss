@@ -1,11 +1,10 @@
 .catalogContainer {
-  margin-top: 100px;
+  margin-top: 10vh;
+  min-height: 60vh;
   padding: 40px 0;
   background-color: var(--color-gray);
   display: flex;
   flex-direction: row;
-
-
 
   .defaultResponse {
     margin: 3rem 1rem 1rem 1rem;
@@ -17,11 +16,10 @@
 
   .filterScreen {
     width: 16%;
-    margin-left: 2%;    
-    padding: 2rem 0;
+    margin-left: 2%;
     display: inline-block;
     vertical-align: top;
-    height: fit-content;    
+    height: fit-content;
   }
 
   .catalogScreen {
