@@ -5,6 +5,8 @@
   display: flex;
   flex-direction: row;
 
+
+
   .defaultResponse {
     margin: 3rem 1rem 1rem 1rem;
     display: flex;
@@ -14,10 +16,12 @@
   }
 
   .filterScreen {
-    width: 20%;
+    width: 16%;
+    margin-left: 2%;    
+    padding: 2rem 0;
     display: inline-block;
     vertical-align: top;
-    margin-left: 5%;
+    height: fit-content;    
   }
 
   .catalogScreen {

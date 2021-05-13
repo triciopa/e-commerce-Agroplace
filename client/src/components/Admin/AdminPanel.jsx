@@ -23,10 +23,10 @@ export default function AdminPanel() {
         { render === "buttons" ?(
             <div id="buttons">
                 
-                <button id="products" onClick={(e) => handleClick(e, 'products')}><RiPlantLine/> <p>Products </p></button>
-                <button id="orders" onClick={(e) => handleClick(e, 'orders')}> <GrDocumentVerified/>  <p>Orders</p></button>
-                <button id="promotions" onClick={(e) => handleClick(e, 'promotions')}> <AiOutlineTags/> <p>Promotions</p></button>
-                <button id="users" onClick={(e) => handleClick(e, 'users')}> <RiUserSettingsLine/> <p>Users</p></button>
+                <button id="products" onClick={(e) => handleClick(e, 'products')}><RiPlantLine/> <p>Productos </p></button>
+                <button id="orders" onClick={(e) => handleClick(e, 'orders')}> <GrDocumentVerified/>  <p>Órdenes</p></button>
+                <button id="promotions" onClick={(e) => handleClick(e, 'promotions')}> <AiOutlineTags/> <p>Promociones</p></button>
+                <button id="users" onClick={(e) => handleClick(e, 'users')}> <RiUserSettingsLine/> <p>Usuarios</p></button>
                 
             </div>) : null
         }

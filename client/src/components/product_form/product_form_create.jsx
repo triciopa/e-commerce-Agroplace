@@ -14,9 +14,9 @@ const grisPrincipal = "#EFEFEF";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
-      margin: "40px auto",
-      width: "70%",
-      borderRadius: "5px",
+      margin: "60px auto",
+      width: "60%",
+      borderRadius: "10px",
       background: "white",
       color: "black",
     },
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "15px",
   },
   button: {
-    margin: "10px",
+    // margin: "10px",
     color: "white",
     padding: "10px",
     fontWeight: "bold",
@@ -244,7 +244,7 @@ export default function Product_form_create(props) {
             )}
           </div>
 
-          <label className="label">Categoria:</label>
+          <label className="label">Categoría:</label>
           <div className="categoryBoxes">
             {category &&
               category.map((c) => {
