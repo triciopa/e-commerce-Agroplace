@@ -163,7 +163,7 @@ const Wishlists = (props) => {
           id="create"
           onClick={(e) => handleCreate(e)}
         >
-          Crear Wishlist
+          Crear Lista
         </li>
       )}
     </div>

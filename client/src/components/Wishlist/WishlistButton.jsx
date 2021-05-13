@@ -74,7 +74,7 @@ function WishlistButton(props) {
         value="value1"
         style={desplegable ? { display: 'none' } : { display: '' }}
       >
-        Agregar a wishlist
+        Agregar a lista de deseados
       </button>
 
       {desplegable && (
@@ -103,7 +103,7 @@ function WishlistButton(props) {
           ) : (
             <div>
               <button id="create" onClick={(e) => handleCreate(e)}>
-                Crear Wishlist
+                Crear Lista de Deseados
               </button>
               <button className="deleteButton" onClick={handleClose}>
                 X

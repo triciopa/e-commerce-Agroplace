@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
       margin: "40px auto",
-      width: "70%",
+      width: "60%",
       borderRadius: "5px",
       background: "white",
       color: "black",
@@ -87,7 +87,6 @@ function Product_form_update(props) {
     }
 
     categories();
-    //SE VIENEEEEEEEE
     const formData = new FormData();
     formData.append("file", pic);
     formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
@@ -177,7 +176,7 @@ function Product_form_update(props) {
 
   return (
     <div className="containerProdFormUpdate">
-      <h1>Modificar productos</h1>
+      <h1>Modificación de producto</h1>
       <form className={classes.root} onSubmit={(e) => handleSubmit(e)}>
         <div className="cont-1">
           <label className="label">Nombre del producto:</label>
@@ -232,24 +231,6 @@ function Product_form_update(props) {
           />
 
           <label className="label">Imagen:</label>
-          {resPic.length > 2 ? (
-            <div className="input_file_full">
-              <label className="input_text">
-                Ya se agregaron tres archivos
-              </label>
-              <input type="file" id="pic" disabled="true" />
-            </div>
-          ) : (
-            <div className="input_file">
-              <label className="input_text">Agregar archivo</label>
-              <input
-                type="file"
-                id="pic"
-                onChange={(e) => handleChangeImg(e)}
-              />
-            </div>
-          )}
-
           <div className="img-card-pic">
             {resPic?.map((i) => (
               <div className="img-card-pic-interno">
@@ -271,35 +252,43 @@ function Product_form_update(props) {
               />
             )}
           </div>
-          {/* 
-          <TextField 
-          id="outlined-basic" 
-          label={product[0]?.unitsOnStock || ' Stock...'}
-          placeholder="Agregue el nuevo stock del producto" 
-          variant="outlined"
-          name="stock" 
-          value={input.stock} 
-          type="number"
-          InputProps={{ inputProps: { min: 0, max: 99999 } }} 
-          onChange={handleChange}
-          className={classes.input}/> */}
+          {resPic.length > 2 ? (
+            <div className="input_file_full">
+              <label className="input_text">
+                Ya se agregaron tres archivos
+              </label>
+              <input type="file" id="pic" disabled="true" />
+            </div>
+          ) : (
+            <div className="input_file">
+              <label className="input_text">Agregar archivo</label>
+              <input
+                type="file"
+                id="pic"
+                onChange={(e) => handleChangeImg(e)}
+              />
+            </div>
+          )}
 
+          <label className="labelCategory">Categorías:</label>
+          <div className='categoriesMap'>
           {modifProduct?.map((x) => (
-            <label>
-              {x.name + "  "}
-              <Button
-                className={classes.button}
+          <div className='categoriesUpdate'>
+              <button
+                className='deleteButton'
                 variant="contained"
                 color="primary"
                 value={x.id}
                 onClick={(e) => deleteCategory(e)}
               >
                 x
-              </Button>
-            </label>
+              </button>
+            {x.name + "  "}
+          </div>
           ))}
+          </div>
           <select onChange={(e) => addCategory(e)}>
-            <option value=""> seleccionar ...</option>
+            <option value=""> Agregar categoría ...</option>
             {category.map((x) => {
               return (
                 <option key={x.name} name={x.name} value={x.id}>

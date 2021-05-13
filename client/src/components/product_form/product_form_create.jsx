@@ -288,7 +288,7 @@ export default function Product_form_create(props) {
       </form>
 
       <NavLink to="/user/info">
-        <Button className={classes.button} variant="contained" color="primary">
+        <Button id='volverboton' className={classes.button} variant="contained" color="primary">
           Volver
         </Button>
       </NavLink>
