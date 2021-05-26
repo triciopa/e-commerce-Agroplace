@@ -34,22 +34,22 @@ GOOGLE_CONSUMER_KEY=[value]
 GOOGLE_CONSUMER_SECRET=[value]
 GOOGLE_URL_CB=[value]
 ```
-4.b Also it's required to create an `.env` file in `/client`, with the FB Client ID:
+5. Also it's required to create an `.env` file in `/client`, with the FB Client ID:
 ```js
 // client/.env
 REACT_APP_CLIENT_ID_FB=[value]
 ```
 >**WARNING:** To login with FB account in development mode, you can only use mock users given by FB. Also, make sure you have "REACT_APP_" prefix for every variable in the client side.
 
-5. In order to use nodemailer for receiving notifications (fulfilled orders, newsletter, etc.), also place an authorized Gmail account in `api/.env`:
+6. In order to use nodemailer for receiving notifications (fulfilled orders, newsletter, etc.), also place an authorized Gmail account in `api/.env`:
 ```js
 // api/.env
 user=[account]
 pass=[password]
 ```
 
-6. Install node modules with `npm i` in both directories `/api` and `/client`.
-7. Start both with `npm start`
+7. Install node modules with `npm i` in both directories `/api` and `/client`.
+8. Start both with `npm start`
 
 ## Features
 
