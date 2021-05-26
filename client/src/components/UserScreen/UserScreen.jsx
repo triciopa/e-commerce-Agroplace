@@ -2,27 +2,50 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import '../../scss/components/UserScreen/_UserScreen.scss';
 import { BiLogOut, BiListPlus } from 'react-icons/bi';
+
 import OrderHistory from '../OrderHistory/OrderHistory';
-import Favorites from '../Wishlist/Favorites';
-import Wishlists from '../Wishlist/Wishlists';
-import ProductForm from '../product_form/product_form';
-import CategoriesForm from '../formCategories/Form';
-import AllOrders from '../AllOrders/AllOrders';
-import Newsletter from '../Newsletter/Newsletter';
+import AdminPanel from '../Admin/AdminPanel';
+import Preferences from '../Wishlist/Preferences';
+import Swal from 'sweetalert2';
+import Settings from '../SettingsUser/Settings';
+import SendOrder from '../SendOrder/SendOrder';
 import { emptyCart } from '../../redux/cartReducer/cartActions';
 import { reset } from '../../redux/iconReducer/iconActions';
 import { LogOut } from '../../redux/loginReducer/loginActions';
+import { getFavs } from '../../redux/wishlistReducer/wishlistActions';
 
 export function UserScreen() {
-  const [render, setRender] = useState('miCuenta');
-
+  const [render, setRender] = useState('');
   const login = useSelector((state) => state.loginReducer);
+
+  const userId = localStorage.getItem('user');
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    const data = localStorage.getItem('render');
+    if (data) {
+      setRender(JSON.parse(data));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('render', JSON.stringify(render));
+  }, [render]);
+
   function handleClick(e) {
     e.preventDefault();
-    setRender(e.target.id);
+
+    if (e.target.id === 'MyAccount') {
+      setRender('');
+    } else {
+      setRender(e.target.id);
+    }
+
+    if (e.target.id === 'favorites') {
+      let favList = JSON.parse(localStorage.getItem('Fav'));
+      dispatch(getFavs(favList));
+    }
   }
 
   const handleLogOut = () => {
@@ -56,11 +79,12 @@ export function UserScreen() {
         >
           Mis Compras
         </div>
+
         <div
-          id="Favorites"
+          id="Preferences"
           onClick={(e) => handleClick(e)}
           style={
-            render === 'Favorites'
+            render === 'Preferences'
               ? {
                   backgroundColor: 'var(--color-brand)',
                   opacity: '50%',
@@ -69,13 +93,14 @@ export function UserScreen() {
               : { backgroundColor: '' }
           }
         >
-          Favoritos
+          Mis Listas
         </div>
+
         <div
-          id="Wishlists"
+          id="Configuracion"
           onClick={(e) => handleClick(e)}
           style={
-            render === 'Wishlists'
+            render === 'Configuracion'
               ? {
                   backgroundColor: 'var(--color-brand)',
                   opacity: '50%',
@@ -84,29 +109,15 @@ export function UserScreen() {
               : { backgroundColor: '' }
           }
         >
-          Wishlists
+          Configuración
         </div>
-        <div
-          id="Newsletter"
-          onClick={(e) => handleClick(e)}
-          style={
-            render === 'Newsletter'
-              ? {
-                  backgroundColor: 'var(--color-brand)',
-                  opacity: '50%',
-                  color: 'var(--color-light)',
-                }
-              : { backgroundColor: '' }
-          }
-        >
-          Newsletter
-        </div>
+
         {login.isAdmin ? (
           <div
-            id="allOrders"
+            id="AdminPanel"
             onClick={(e) => handleClick(e)}
             style={
-              render === 'allOrders'
+              render === 'AdminPanel'
                 ? {
                     backgroundColor: 'var(--color-brand)',
                     opacity: '50%',
@@ -115,43 +126,10 @@ export function UserScreen() {
                 : { backgroundColor: '' }
             }
           >
-            Administrar órdenes
+            Administración
           </div>
         ) : null}
-        {login.isAdmin ? (
-          <div
-            id="CreateProduct"
-            onClick={(e) => handleClick(e)}
-            style={
-              render === 'CreateProduct'
-                ? {
-                    backgroundColor: 'var(--color-brand)',
-                    opacity: '50%',
-                    color: 'var(--color-light)',
-                  }
-                : { backgroundColor: '' }
-            }
-          >
-            Administrar productos
-          </div>
-        ) : null}
-        {login.isAdmin ? (
-          <div
-            id="ManageCategories"
-            onClick={(e) => handleClick(e)}
-            style={
-              render === 'ManageCategories'
-                ? {
-                    backgroundColor: 'var(--color-brand)',
-                    opacity: '50%',
-                    color: 'var(--color-light)',
-                  }
-                : { backgroundColor: '' }
-            }
-          >
-            Administrar categorías
-          </div>
-        ) : null}
+
         <div
           id="LogOut"
           onClick={() => handleLogOut()}
@@ -173,21 +151,15 @@ export function UserScreen() {
         {render === 'MyAccount' ? (
           <h3>Datos de mi cuenta</h3>
         ) : render === 'PurchaseHistory' ? (
-          <OrderHistory />
-        ) : render === 'Favorites' ? (
-          <Favorites />
-        ) : render === 'Wishlists' ? (
-          <Wishlists />
-        ) : render === 'Newsletter' ? (
-          <div style={{ marginLeft: '3vw' }}>
-            <Newsletter />
+          <div>
+            <OrderHistory />
           </div>
-        ) : render === 'allOrders' ? (
-          <AllOrders />
-        ) : render === 'CreateProduct' ? (
-          <ProductForm />
-        ) : render === 'ManageCategories' ? (
-          <CategoriesForm />
+        ) : render === 'Configuracion' ? (
+          <Settings />
+        ) : render === 'Preferences' ? (
+          <Preferences />
+        ) : render === 'AdminPanel' ? (
+          <AdminPanel />
         ) : (
           <div id="welcomeUser">
             <h3>¡Hola {login.user.firstName}!</h3>

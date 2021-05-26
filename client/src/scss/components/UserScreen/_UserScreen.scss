@@ -1,4 +1,6 @@
 .infoContainer {
+  margin-top: 10vh;
+  min-height: 60vh;
   padding: 40px 0;
   background-color: var(--color-gray);
   display: flex;
@@ -6,12 +8,12 @@
   align-items: flex-start;
   .selectScreen {
     background-color: white;
-    width: 20%;
+    width: 16%;
     height: fit-content;
     display: inline-block;
     // vertical-align: top;
 
-    margin-left: 10%;
+    margin-left: 3%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

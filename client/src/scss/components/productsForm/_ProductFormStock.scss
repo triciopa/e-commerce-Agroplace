@@ -1,0 +1,22 @@
+.containerProdFormStock{
+    .title{
+        color: rgba(69, 161, 74, 1)
+    }
+    margin-top: 15vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    min-height: 60vh;
+    .selectDiv{
+        display: flex;
+        width: 85%;
+        justify-content: flex-start;
+        margin-bottom: 20px;
+        .select{
+            min-width: 200px;
+            max-width: 350px;
+        }
+        
+    }
+
+}

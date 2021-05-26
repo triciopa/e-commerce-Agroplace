@@ -6,6 +6,33 @@ import '../../scss/components/productsForm/_ProductFormCreate.scss';
 import { postProduct } from '../../redux/reducerProductForms/actionsProductForms';
 import axios from 'axios';
 import swal from 'sweetalert';
+import { makeStyles } from '@material-ui/core/styles';
+import { TextField, CircularProgress, Button } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: '60px auto',
+      width: '60%',
+      borderRadius: '10px',
+      background: 'white',
+      color: 'black',
+    },
+  },
+  input: {
+    width: '90%',
+    color: 'red',
+    marginTop: '15px',
+    marginBottom: '15px',
+  },
+  button: {
+    // margin: "10px",
+    color: 'white',
+    padding: '10px',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+  },
+}));
 
 export default function Product_form_create(props) {
   const [input, setInput] = useState({
@@ -83,7 +110,7 @@ export default function Product_form_create(props) {
   const handleSubmit = function (event) {
     event.preventDefault();
     if (input.categoryCheck.length === 0) {
-      swal('Aviso!','Se requiere al menos UNA categoría', 'warning');
+      swal('Aviso!', 'Se requiere al menos UNA categoría', 'warning');
     } else {
       dispatch(
         postProduct(
@@ -97,7 +124,6 @@ export default function Product_form_create(props) {
         )
       );
 
-      
       setInput({
         name: '',
         SKU: '',
@@ -109,12 +135,12 @@ export default function Product_form_create(props) {
       });
       setPic('');
       setResPic([]);
-      
+
       let inputs = document.querySelectorAll('input[type=checkbox]');
       inputs.forEach((item) => {
         item.checked = false;
       });
-      swal('Éxito!',`El producto ${input.name} ha sido creado`, 'success');
+      swal('Éxito!', `El producto ${input.name} ha sido creado`, 'success');
     }
   };
 
@@ -123,47 +149,56 @@ export default function Product_form_create(props) {
       <h1>Agregar productos</h1>
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="cont-1">
-          <label className="label">Nombre del producto:</label>
-          <input
-            type="text"
+          <TextField
+            id="outlined-basic"
+            label="Nombre"
+            placeholder="Agregue el nombre del producto..."
+            variant="outlined"
             name="name"
-            autoComplete="off"
-            placeholder="Nombre..."
             value={input.name}
+            type="text"
             required
             onChange={handleChange}
+            className={classes.input}
           />
-
-          <label className="label">SKU:</label>
-          <input
-            type="text"
+          {/* <div className='skuPrice'> */}
+          <TextField
+            id="outlined-basic"
+            label="SKU"
+            placeholder="Agregue el SKU del producto..."
+            variant="outlined"
             name="SKU"
-            autoComplete="off"
-            placeholder=" SKU..."
             value={input.SKU}
             required
             onChange={handleChange}
+            className={classes.input}
           />
 
-          <label className="label">Precio por unidad:</label>
-          <input
-            type="number"
-            min="1"
-            max="99999"
+          <TextField
+            id="outlined-basic"
+            label="Precio"
+            placeholder="Agregue el precio del producto..."
+            variant="outlined"
             name="price"
-            autoComplete="off"
-            placeholder="Precio..."
             value={input.price}
+            type="number"
+            InputProps={{ inputProps: { min: 0, max: 99999 } }}
             required
             onChange={handleChange}
+            className={classes.input}
           />
+          {/* </div> */}
 
-          <label className="label">Descripción:</label>
-          <textarea
+          <TextField
+            id="outlined-basic"
+            label="Descripción..."
+            variant="outlined"
             name="description"
             value={input.description}
+            type="text"
             required
             onChange={handleChange}
+            className={classes.input}
           />
 
           <label className="label">Imagen:</label>
@@ -199,10 +234,16 @@ export default function Product_form_create(props) {
                 />
               </div>
             ))}
-            <progress value={progress} max="100"></progress>
+            {progress != 100 && (
+              <CircularProgress
+                className="circular"
+                variant="determinate"
+                value={progress}
+              />
+            )}
           </div>
 
-          <label className="label">Categoria:</label>
+          <label className="label">Categoría:</label>
           <div className="categoryBoxes">
             {category &&
               category.map((c) => {
@@ -219,25 +260,40 @@ export default function Product_form_create(props) {
               })}
           </div>
 
-          <label className="label">Stock:</label>
-          <input
-            type="number"
-            min="0"
-            max="9999"
+          <TextField
+            id="outlined-basic"
+            label="Stock"
+            placeholder="Agregue el stock del producto"
+            variant="outlined"
             name="stock"
-            autoComplete="off"
-            placeholder=" Agregar stock..."
             value={input.stock}
+            type="number"
+            InputProps={{ inputProps: { min: 0, max: 99999 } }}
             required
             onChange={handleChange}
+            className={classes.input}
           />
 
-          <button type="submit">Crear producto</button>
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+            type="submit"
+          >
+            Crear producto
+          </Button>
         </div>
       </form>
 
       <NavLink to="/user/info">
-        <button>Volver</button>
+        <Button
+          id="volverboton"
+          className={classes.button}
+          variant="contained"
+          color="primary"
+        >
+          Volver
+        </Button>
       </NavLink>
     </div>
   );

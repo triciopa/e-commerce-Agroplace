@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { FaFacebookF, FaLinkedinIn, FaGoogle } from 'react-icons/fa';
 import '../../scss/components/Signup/_Signup.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -8,15 +7,26 @@ import {
   SwalBooC,
 } from '../../redux/postUserReducer/postUserActions';
 import Swal from 'sweetalert2';
+import swal from 'sweetalert';
 import {
   LoginAction,
   LogOut,
-  SwalBoo,
+  LogFailHandle,
 } from '../../redux/loginReducer/loginActions';
 import { useHistory } from 'react-router';
-import { totalPrice, userLogged } from '../../redux/cartReducer/cartActions';
+import {
+  addProduct,
+  emptyCart,
+  totalPrice,
+} from '../../redux/cartReducer/cartActions';
 import { modifyCart } from '../../redux/iconReducer/iconActions';
 import axios from 'axios';
+import FacebookLogin from 'react-facebook-login';
+import { TiSocialFacebookCircular } from 'react-icons/ti';
+import { GoogleLogin } from 'react-google-login';
+import { Link } from 'react-router-dom';
+import DoubleAuth from './DoubleAuth';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -24,10 +34,81 @@ const Signup = () => {
   const log = useSelector((state) => state.loginReducer);
   const post = useSelector((state) => state.postUserReducer);
 
+  const responseSuccessGoogle = (response) => {
+    try {
+      dispatch(GLogin(response));
+    } catch (e) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'algo ha salido mal!',
+        confirmButtonColor: '#378a19',
+      });
+    }
+  };
+
+  const responseRejectGoogle = (response) => {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'algo ha salido mal!',
+      confirmButtonColor: '#378a19',
+    });
+  };
+  const responseFacebook = (response) => {
+    console.log(response);
+    try {
+      dispatch(FLogin(response.accessToken, response.userID));
+    } catch (e) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'algo ha salido mal!',
+        confirmButtonColor: '#378a19',
+      });
+    }
+    // if (!response.status) {
+
+    //   dispatch(
+    //     postFbUser({
+    //       firstName: response.first_name,
+    //       lastName: response.last_name,
+    //       email: response.email,
+    //       facebookUser: response.id,
+    //     })
+    //   );
+    // } else {
+    //   alert('No se pudo loguear a Facebook');
+    // }
+  };
+
+  ///////
+
+  const products = useSelector((state) => state.catalogReducer.products);
   //Session iniciada D:
   const productCart = useSelector((state) => state.cartReducer.cart);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [input, setInput] = useState({
+    uname: '',
+    psw: '',
+  });
+  const [errors, setErrors] = useState({});
+
+  function validateLogin(input) {
+    let errors = {};
+    if (!input.uname) {
+      errors.username = 'Email es requerido';
+    } else if (!/\S+@\S+\.\S+/.test(input.uname)) {
+      errors.username = 'Email no es valido';
+    }
+    if (!input.psw) {
+      errors.password = 'Contrseña es requerida';
+    } else if (
+      !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(input.psw)
+    ) {
+      errors.password = 'Contraseña no es valida';
+    }
+    return errors;
+  }
 
   const sessionChange = (e) => {
     return e.target.name === 'uname'
@@ -38,9 +119,8 @@ const Signup = () => {
   };
   const sessionSubmit = async (e) => {
     e.preventDefault();
-    if (username.length > 5) {
-      dispatch(LoginAction(username, password));
-    }
+    setActivate(false);
+    dispatch(LoginAction(input.uname, input.psw));
   };
 
   useEffect(() => {
@@ -76,14 +156,27 @@ const Signup = () => {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'No voy a mentirte marge, tus datos estan mal',
+        text: log.error,
         confirmButtonColor: '#378a19',
       });
-      dispatch(SwalBoo());
+      setActivate(true);
+      dispatch(LogFailHandle());
     }
   }, [log.errorLogin]);
 
+  useEffect(() => {
+    if (log.isDoubleAuth) {
+      swal(
+        'Aviso!',
+        'Hemos enviado un codigo de verificacion a tu email',
+        'success'
+      );
+      setActivate(true);
+    }
+  }, [log.isDoubleAuth]);
+
   //////// post user && cambio de form
+  const [activate, setActivate] = useState(true);
   const [show, setShow] = useState(null);
   const [user, setUser] = useState({
     firstName: '',
@@ -147,131 +240,182 @@ const Signup = () => {
 
   return (
     <div className="Signup">
-      {!log.isLogin ? (
-        <div className={`${show}  container`} id="container">
-          <div className="form-container sign-up-container">
-            <form action="#" onSubmit={handlesubmit}>
-              <h1>Crea tu cuenta</h1>
-              {/* <div className="social-container">
-                <a href="#" className="social">
-                  <i className="fab fa-facebook-f">
-                    <FaFacebookF />
-                  </i>
-                </a>
-                <a href="#" className="social">
-                  <i className="fab fa-google-plus-g">
-                    {" "}
-                    <FaGoogle />
-                  </i>
-                </a>
-                <a href="#" className="social">
-                  <i className="fab fa-linkedin-in">
-                    <FaLinkedinIn />
-                  </i>
-                </a>
-              </div>
-              <span>o use tu email para registrarte</span> */}
+      {activate ? (
+        <div>
+          {!log.isLogin ? (
+            <div>
+              <div className={`${show}  container`} id="container">
+                <div className="form-container sign-up-container">
+                  <form action="#" onSubmit={userSubmit}>
+                    <h1>Crea tu cuenta</h1>
+                    <div className="social-container">
+                      {/* <a href="#" className="social">
+                <i className="fab fa-linkedin-in">
+                  <FaLinkedinIn />
+                </i>
+              </a> */}
+                    </div>
+                    <span>o use tu email para registrarte</span>
 
-              <input
-                type="text"
-                name="firstName"
-                autoComplete="off"
-                placeholder="Nombre..."
-                value={user.firstName}
-                onChange={handleChange}
-                required
-              />
-              <input
-                type="text"
-                name="lastName"
-                placeholder="Apellido..."
-                value={user.lastName}
-                onChange={handleChange}
-                required
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email..."
-                value={user.email}
-                onChange={handleChange}
-                required
-              />
-              <input
-                type="password"
-                name="password"
-                placeholder="Contraseña..."
-                value={user.password}
-                onChange={handleChange}
-                required
-              />
-              <button type="submit">Registrarse</button>
-            </form>
-          </div>
-          <div className="form-container sign-in-container">
-            <form action="#" onSubmit={sessionSubmit}>
-              <h1>Inicia Sesion</h1>
-              {/* <div className="social-container">
-                <a href="#" className="social">
-                  <i className="fab fa-facebook-f">
-                    <FaFacebookF />
-                  </i>
-                </a>
-                <a href="#" className="social">
-                  <i className="fab fa-google-plus-g">
-                    <FaGoogle />
-                  </i>
-                </a>
-                <a href="#" className="social">
-                  <i className="fab fa-linkedin-in">
-                    <FaLinkedinIn />
-                  </i>
-                </a>
-              </div> */}
-              {/* <span>o usa tu cuenta</span> */}
-              <input
-                type="email"
-                value={username}
-                name="uname"
-                onChange={sessionChange}
-                placeholder="Email"
-                required
-              />
-              <input
-                type="password"
-                value={password}
-                name="psw"
-                onChange={sessionChange}
-                placeholder="Contraseña"
-              />
-              {/* <a href="#">olvidaste tu clave?</a> */}
-              <button type="submit">INICIA SESION</button>
-            </form>
-          </div>
-          <div className="overlay-container">
-            <div className="overlay">
-              <div className="overlay-panel overlay-left">
-                <h1>Bienvenido!</h1>
-                <p>Ya tenes una cuenta? Ingresa tu email y contraseña...</p>
-                <button className="ghost" id="signIn" onClick={signInButton}>
-                  Iniciar sesion
-                </button>
+                    <input
+                      type="text"
+                      name="firstName"
+                      autoComplete="off"
+                      placeholder="Nombre..."
+                      value={user.firstName}
+                      onChange={userChange}
+                      required
+                    />
+                    <input
+                      type="text"
+                      name="lastName"
+                      placeholder="Apellido..."
+                      value={user.lastName}
+                      onChange={userChange}
+                      required
+                    />
+                    <input
+                      type="text"
+                      name="email"
+                      placeholder="Email..."
+                      value={user.email}
+                      onChange={userChange}
+                      className={`${errorsCreate.email && 'danger'}`}
+                    />
+                    {errorsCreate.email && (
+                      <p className="danger">{errorsCreate.email}</p>
+                    )}
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="contraseña"
+                      value={user.password}
+                      onChange={userChange}
+                      className={`${errorsCreate.password && 'danger'}`}
+                    />
+                    {errorsCreate.password && (
+                      <p className="danger">{errorsCreate.password}</p>
+                    )}
+                    <input
+                      type="password"
+                      name="confirmPassword"
+                      placeholder="confirme contraseña..."
+                      value={user.confirmPassword}
+                      onChange={userChange}
+                      className={`${errorsCreate.confirmPassword && 'danger'}`}
+                    />
+                    {errorsCreate.confirmPassword && (
+                      <p className="danger">{errorsCreate.confirmPassword}</p>
+                    )}
+                    <button type="submit">Registrarse</button>
+                  </form>
+                </div>
+
+                <div className="form-container sign-in-container">
+                  <div className="social-container">
+                    <GoogleLogin
+                      clientId="926134963488-27qle0uk3423ed3dt2jlkd20rtht66g6.apps.googleusercontent.com"
+                      autoLoad={false}
+                      type="button"
+                      icon={true}
+                      buttonText="Google"
+                      loginHint="Hola"
+                      onSuccess={responseSuccessGoogle}
+                      onFailure={responseRejectGoogle}
+                      cookiePolicy={'single_host_origin'}
+                      className="google-login-button"
+                    />
+                    <FacebookLogin
+                      appId="311325910426887"
+                      autoLoad={false}
+                      fields="name,email,picture,first_name,last_name"
+                      textButton="Facebook"
+                      // onClick={componentClicked}
+                      cssClass="facebook-login-button"
+                      // icon="fa-facebook"
+                      icon={<TiSocialFacebookCircular />}
+                      callback={responseFacebook}
+                    />
+                  </div>
+
+                  <form id="loginFrame" action="#" onSubmit={sessionSubmit}>
+                    <h1>Inicia Sesion</h1>
+
+                    <span>o usa tu cuenta</span>
+                    <input
+                      className={`${errors.username && 'danger'}`}
+                      type="text"
+                      value={input.uname}
+                      name="uname"
+                      onChange={sessionChange}
+                      placeholder="Email"
+                    />
+                    {input.uname.length < 8 ||
+                      (errors.username && (
+                        <p className="danger">{errors.username}</p>
+                      ))}
+                    <input
+                      className={`${
+                        input.psw.length < 8 || (errors.password && 'danger')
+                      }`}
+                      type="password"
+                      value={input.psw}
+                      name="psw"
+                      onChange={sessionChange}
+                      placeholder="Contraseña"
+                      required
+                    />
+                    {input.psw.length < 8 ||
+                      (errors.password && (
+                        <p className="danger">{errors.password}</p>
+                      ))}
+                    <Link to="/forgot/email">olvidaste tu clave?</Link>
+
+                    <button type="submit">INICIA SESION</button>
+                  </form>
+                </div>
+                <div className="overlay-container">
+                  <div className="overlay">
+                    <div className="overlay-panel overlay-left">
+                      <h1>Bienvenido!</h1>
+                      <p>
+                        Ya tenes una cuenta? Ingresa tu email y contraseña...
+                      </p>
+                      <button
+                        className="ghost"
+                        id="signIn"
+                        onClick={signInButton}
+                      >
+                        Iniciar sesion
+                      </button>
+                    </div>
+                    <div className="overlay-panel overlay-right">
+                      <h1>Sembremos futuro, juntos!</h1>
+                      <p>
+                        Para seguir conectado con nosotros por favor ingresa tu
+                        informacion personal!
+                      </p>
+                      <button
+                        className="ghost"
+                        id="signUp"
+                        onClick={signUpButton}
+                      >
+                        Registrarse
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="overlay-panel overlay-right">
-                <h1>Sembremos futuro, juntos!</h1>
-                <p>
-                  Para seguir conectado con nosotros por favor ingresa tu
-                  informacion personal!
-                </p>
-                <button className="ghost" id="signUp" onClick={signUpButton}>
-                  Registrarse
-                </button>
+              <div className="doble">
+                {log.isDoubleAuth ? <DoubleAuth /> : ''}
               </div>
             </div>
-          </div>
+          ) : (
+            <button onClick={() => dispatch(LogOut())}>Salir</button>
+          )}
         </div>
       ) : (
-        <button onClick={() => dispatch(LogOut())}>Salir</button>
+        <CircularProgress />
       )}
     </div>
   );

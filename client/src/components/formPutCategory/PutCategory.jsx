@@ -21,16 +21,12 @@ function PutCategory({ categorySelect, setPut, put, dataCategories }) {
         ''
       ) : (
         <div>
-          <h2>Modificar Categoría</h2>
           <form>
-            {/* <label className="">{categorySelect}</label> */}
             <input
               className="input-category"
-              placeholder="Inserte nuevo nombre..."
+              placeholder="Nuevo nombre..."
               onChange={(e) => setInput(e.target.value)}
             />
-            <br />
-            <br />
             <button
               className="button-putcategory"
               type="submit"

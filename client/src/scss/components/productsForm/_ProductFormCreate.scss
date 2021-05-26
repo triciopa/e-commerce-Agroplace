@@ -1,40 +1,27 @@
 body {
-  font-family: sans-serif;
+  // font-family: sans-serif;
   overflow-x: hidden;
+}
+a {
+  text-decoration: none;
 }
 .containerProdFormCreate {
   display: flex;
   flex-direction: column;
   text-align: center;
-  button {
-    background-color: var(--color-brand-light);
-    padding: 1.5vh 3vw;
-    border: transparent;
-    box-shadow: 2px 2px 2px var(--color-brand);
-    margin: 2vh auto;
-
-    &:hover {
-      background-color: var(--color-brand);
-      box-shadow: 2px 2px 2px #164b03;
-      position: relative;
-      top: -5px;
-    }
-    &:active {
-      background-color: var(--color-sun);
-      box-shadow: 2px 2px 2px orange;
-    }
-
-    &:nth-child(1) {
-      margin: 4vh auto;
-    }
-  }
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 20px;
   .input {
-    width: 90%;
+    width: 80%;
     height: 30px;
     &:focus {
       background-color: var(--color-sun);
       box-shadow: 2px 2px 2px orange;
     }
+  }
+  #volverboton{
+    margin-bottom: 2%;
   }
 }
 .input_file {
@@ -43,12 +30,15 @@ body {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-color: var(--color-brand-light);
-  padding: 1.5vh 3vw;
+  background-color: var(--color-brand);
+  padding: 7px;
   border: transparent;
-  box-shadow: 2px 2px 2px var(--color-brand);
+  box-shadow: 2px 2px 2px var(--color-gray);
   margin: 2vh auto;
   cursor: pointer;
+  font-size: 15px;
+  color: white;
+  border-radius: 5px;
   input {
     position: absolute;
     top: 0;
@@ -61,8 +51,9 @@ body {
   }
   label {
     text-align: center;
+    cursor: pointer;
   }
-  label:hover {
+  .input_text{
     cursor: pointer;
   }
 }
@@ -76,7 +67,6 @@ body {
   background: gray;
   padding: 1.5vh 3vw;
   border: transparent;
-  /* box-shadow: 2px 2px 2px rgb(73, 72, 72); */
   margin: 2vh auto;
   input {
     position: absolute;
@@ -97,9 +87,8 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  /* border: 1px solid rgba(0, 0, 0, 0.404); */
   width: 90%;
-  height: 200px;
+  min-height: 10px;
   border-radius: 5px;
   position: relative;
 
@@ -111,7 +100,7 @@ body {
 
     img {
       height: 190px;
-      width: 150px;
+      width: 170px;
     }
 
     .boton {
@@ -133,7 +122,6 @@ body {
   }
   .circular {
     position: absolute;
-
     bottom: 100px;
     left: 390px;
   }
@@ -145,16 +133,6 @@ body {
   align-items: center;
   justify-content: space-around;
   background: var(--color-brand-light);
-  background: -webkit-linear-gradient(
-    to right,
-    var(--color-brand),
-    var(--color-brand-light)
-  );
-  background: linear-gradient(
-    to right,
-    var(--color-brand),
-    var(--color-brand-light)
-  );
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
@@ -165,9 +143,8 @@ body {
   padding-top: 30px;
   border-radius: 2px;
   transition: 500ms;
-  width: 60%;
+  width: 50%;
   box-shadow: 0px 0px 30px 1px rgba(0, 0, 0, 0.438);
-
   select {
     color: rgba(0, 0, 0, 0.699);
     cursor: pointer;
@@ -188,14 +165,14 @@ body {
   input {
     color: rgba(0, 0, 0, 0.699);
     cursor: pointer;
-    height: 40px;
-    width: 90%;
+    height: 20px;
+    width: 70%;
 
     border: none;
     border-radius: 5px;
     transition: 500ms;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 
     &[type="checkbox"] {
       display: flex;

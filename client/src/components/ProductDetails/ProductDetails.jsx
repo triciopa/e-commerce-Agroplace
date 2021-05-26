@@ -77,7 +77,16 @@ const ProductDetails = (props) => {
   const [hasBuy, setHasBuy] = useState([]);
   const [hasComment, setHasComment] = useState([]);
 
-  const Wish = () => {
+  let productPromotion = productDetail.promotions || null;
+  if (productPromotion) {
+    //Los ordeno para tomar la mejor promocion para el consumidor, la mejor promocion quedara (en caso de existir) en la posicion 0
+    productPromotion = productPromotion.sort(
+      (a, b) => b.discountDate - a.discountDate
+    );
+  }
+
+  const Fav = (productId, handleIcons) => {
+    console.log(handleIcons);
     return (
       <FormControlLabel
         control={
@@ -85,7 +94,6 @@ const ProductDetails = (props) => {
             icon={<FavoriteBorder />}
             checkedIcon={<Favorite />}
             name={`Fav-${productDetail.id}`}
-            
           />
         }
       />
@@ -178,7 +186,25 @@ const ProductDetails = (props) => {
                 </div>
               </div>
               <h4>SKU: {productDetail.SKU}</h4>
-              <h4>Precio: {productDetail.unitPrice} USD</h4>
+              {!productPromotion?.length > 0 && (
+                <h4>Precio: {productDetail.unitPrice} USD</h4>
+              )}
+              {productPromotion?.length > 0 &&
+                productPromotion[0].discountDate && (
+                  <>
+                    <h4>
+                      {`USD$${(
+                        productDetail.unitPrice -
+                        productDetail.unitPrice *
+                          (productPromotion[0].discountDate / 100)
+                      ).toFixed(2)}`}{' '}
+                      | <i>{`${productPromotion[0].discountDate}% OFF`}</i>
+                    </h4>
+                    <del style={{ color: '#aaa', fontSize: '15px' }}>
+                      USD${`${productDetail.unitPrice}`}
+                    </del>
+                  </>
+                )}
               <h4>Stock: {productDetail.unitsOnStock}</h4>
               <div className="categroy-details">
                 {productDetail.categories

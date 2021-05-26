@@ -1,0 +1,39 @@
+.container-payment {
+  text-align: center;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  margin-top: 15vh;
+  width: 58%;
+  border-radius: 5px;  
+  h3 {
+    color: #333;
+    font-family: Proxima Nova, -apple-system, Helvetica Neue, Helvetica, Roboto,
+      Arial, sans-serif;
+    font-weight: 700;
+  }
+  .paymentForm{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  button {
+    margin: 10px auto;
+    height: 3.7rem;
+    background-color: #0070ba;
+    color: #fff;
+    margin-left: none;
+    font-weight: bolder;
+    width: 67%;
+    &:hover {
+      background-color: #009ee3;      
+    }
+  }
+
+  .button-paypal {
+    width: 100%;
+  }
+}

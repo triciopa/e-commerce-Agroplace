@@ -1,11 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import ProductCart from './ProductCart';
+import { Link, useHistory } from 'react-router-dom';
+
+// styles
 import '../../scss/components/Cart/_Cart.scss';
-import { emptyDb, totalPrice } from '../../redux/cartReducer/cartActions';
+
+// Material UI
+import swal from 'sweetalert';
 import { Button } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+
+// Redux
+import { emptyDb, totalPrice } from '../../redux/cartReducer/cartActions';
+import { reset } from '../../redux/iconReducer/iconActions';
+
+// React components
+import ProductCart from './ProductCart';
 
 function Cart() {
   const products = useSelector((state) => state.cartReducer.cart);
@@ -41,7 +50,7 @@ function Cart() {
         )}
       </div>
       <hr />
-
+      <div></div>
       <div className="total">
         {total ? <h2>Total ${total}</h2> : ''}
         {products.length ? (

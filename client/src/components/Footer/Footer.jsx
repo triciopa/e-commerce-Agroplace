@@ -14,26 +14,26 @@ const Footer = () => {
       <footer className="site-footer">
         <div className="row">
           <div className="about">
-            <h6>Quienes somos</h6>
+            <h6>Quiénes somos</h6>
             <p className="text-justify">
               A través de los años formamos una red de distribución que facilita
               la llegada de nuestros productos a las diferentes zonas de Latino
-              America y el mundo. Nuestro compromiso es tener la más rápida
+              América y el mundo. Nuestro compromiso es tener la más rápida
               respuesta para que los productos llegue en tiempo y forma a
               nuestros clientes.
             </p>
           </div>
           <div className="linksrap">
-            <h6>Links rapidos</h6>
+            <h6>Links rápidos</h6>
             <ul className="footer-links">
               <li>
-                <Link to="/">Pagina Principal</Link>
+                <Link to="/">Página Principal</Link>
               </li>
               <li>
                 <Link to="/catalog">Catalogo</Link>
               </li>
               <li>
-                <Link to="/">Politica de Privacidad</Link>
+                <Link to="/">Política de Privacidad</Link>
               </li>
             </ul>
           </div>

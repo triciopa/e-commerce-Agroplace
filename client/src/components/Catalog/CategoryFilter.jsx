@@ -45,8 +45,10 @@ function CategoryFilter() {
           >
             <DivText className="categoryButton" content={category.name} />
           </div>
+          
         );
       })}
+      <br />
     </div>
   );
 }

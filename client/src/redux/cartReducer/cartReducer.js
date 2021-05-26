@@ -10,7 +10,21 @@ import {
 const initialState = {
   cart: [],
   total: 0,
+  location: 0,
 };
+
+function havePromotion(e){
+  let productPromotion = e || false;
+  if(!productPromotion) return 1;
+  if (productPromotion) {
+    //Los ordeno para tomar la mejor promocion para el consumidor, la mejor promocion quedara (en caso de existir) en la posicion 0
+    productPromotion = productPromotion.sort(
+      (a, b) => b.discountDate - a.discountDate
+    );
+  }
+
+  return (productPromotion[0]?.discountDate /100) // 0.45, 0.75, etc ...
+}
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -29,7 +43,7 @@ export default (state = initialState, action) => {
     }
     case TOTAL: {
       let totalP = state.cart.reduce(
-        (acc, e) => acc + e.unitPrice * (e.quantity ? e.quantity : 1),
+        (acc, e) => acc + e.unitPrice * (e.quantity ? e.quantity : 1) * ((-(havePromotion(e.promotions) - 1)) || 1), //0.80 - 1  = -0.20 * -1 = 0.20
         0
       );
       totalP = parseFloat(totalP.toFixed(2));
@@ -60,6 +74,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         cart: [],
+      };
+    }
+    case "LOCATION": {
+      return {
+        ...state,
+        location: parseInt(action.payload),
       };
     }
 

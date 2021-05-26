@@ -50,23 +50,22 @@ function Form() {
   };
 
   return (
-    <div className="container-form">
+    <div className="categories-form">
       <div className="box-form">
-        <h3>Categorias</h3>
+        
         <div className="box-options">
+
           <form onSubmit={handleAddCategory}>
             <label className="label-category">
-              Agregar una nueva Categoria
+              Crear categoría
             </label>
-            <br />
-
             <input
               className="input-category"
               value={addCategory}
+              placeholder='Nuevos Fertilizantes...'
               onChange={(e) => setAddCategory(e.target.value)}
             ></input>
-            <br />
-            <br />
+            
             <button
               className="button-putcategory"
               type="submit"
@@ -75,11 +74,8 @@ function Form() {
               Agregar
             </button>
           </form>
-
           <form>
-            <br />
-            <label className="label-category">Categoria</label>
-            <br />
+            <label className="label-category">Modificar categoria</label>
             <select
               className="select-category"
               type="text"
@@ -123,7 +119,6 @@ function Form() {
                 )}
               </div>
             )}
-            <br />
 
             <div>
               {put ? (
