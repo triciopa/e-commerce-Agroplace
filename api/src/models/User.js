@@ -74,7 +74,7 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
     },
     recoveryToken: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
     },
     passwordResetExpires: {
       type: DataTypes.DATE,

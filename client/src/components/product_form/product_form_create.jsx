@@ -1,65 +1,67 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import '../../scss/components/productsForm/_ProductFormCreate.scss';
-import { postProduct } from '../../redux/reducerProductForms/actionsProductForms';
-import axios from 'axios';
-import swal from 'sweetalert';
-import { makeStyles } from '@material-ui/core/styles';
-import { TextField, CircularProgress, Button } from '@material-ui/core';
+import React from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+import "../../scss/components/productsForm/_ProductFormCreate.scss";
+import { postProduct } from "../../redux/reducerProductForms/actionsProductForms";
+import axios from "axios";
+import swal from "sweetalert";
+import { makeStyles } from "@material-ui/core/styles";
+import { TextField, CircularProgress, Button } from "@material-ui/core";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    '& > *': {
-      margin: '60px auto',
-      width: '60%',
-      borderRadius: '10px',
-      background: 'white',
-      color: 'black',
+    "& > *": {
+      margin: "60px auto",
+      width: "60%",
+      borderRadius: "10px",
+      background: "white",
+      color: "black",
     },
   },
   input: {
-    width: '90%',
-    color: 'red',
-    marginTop: '15px',
-    marginBottom: '15px',
+    width: "90%",
+    color: "red",
+    marginTop: "15px",
+    marginBottom: "15px",
   },
   button: {
     // margin: "10px",
-    color: 'white',
-    padding: '10px',
-    fontWeight: 'bold',
+    color: "white",
+    padding: "10px",
+    fontWeight: "bold",
     cursor: 'pointer',
   },
 }));
 
 export default function Product_form_create(props) {
+  const classes = useStyles();
   const [input, setInput] = useState({
-    name: '',
-    SKU: '',
-    price: '',
-    description: '',
+    name: "",
+    SKU: "",
+    price: "",
+    description: "",
     categoryCheck: [],
-    stock: '',
+    stock: "",
   });
   const [resPic, setResPic] = useState([]);
   const [pic, setPic] = useState();
   const [progress, setProgress] = useState();
 
   const CLOUDINARY_URL =
-    'https://api.cloudinary.com/v1_1/dxy0hg426/image/upload';
-  const CLOUDINARY_UPLOAD_PRESET = 'iyqdnelg';
+    "https://api.cloudinary.com/v1_1/dxy0hg426/image/upload";
+  const CLOUDINARY_UPLOAD_PRESET = "iyqdnelg";
 
   useEffect(() => {
     const formData = new FormData();
-    formData.append('file', pic);
-    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+    formData.append("file", pic);
+    formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
 
     const fetchImg = (async function () {
       const res = await axios.post(CLOUDINARY_URL, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
         onUploadProgress(e) {
           console.log(e.loaded);
@@ -110,7 +112,7 @@ export default function Product_form_create(props) {
   const handleSubmit = function (event) {
     event.preventDefault();
     if (input.categoryCheck.length === 0) {
-      swal('Aviso!', 'Se requiere al menos UNA categoría', 'warning');
+      swal("Aviso!", "Se requiere al menos UNA categoría", "warning");
     } else {
       dispatch(
         postProduct(
@@ -125,29 +127,29 @@ export default function Product_form_create(props) {
       );
 
       setInput({
-        name: '',
-        SKU: '',
-        price: '',
-        description: '',
-        pic: '',
+        name: "",
+        SKU: "",
+        price: "",
+        description: "",
+        pic: "",
         categoryCheck: [],
-        stock: '',
+        stock: "",
       });
-      setPic('');
+      setPic("");
       setResPic([]);
 
-      let inputs = document.querySelectorAll('input[type=checkbox]');
+      let inputs = document.querySelectorAll("input[type=checkbox]");
       inputs.forEach((item) => {
         item.checked = false;
       });
-      swal('Éxito!', `El producto ${input.name} ha sido creado`, 'success');
+      swal("Éxito!", `El producto ${input.name} ha sido creado`, "success");
     }
   };
 
   return (
     <div className="containerProdFormCreate">
       <h1>Agregar productos</h1>
-      <form onSubmit={(e) => handleSubmit(e)}>
+      <form className={classes.root} onSubmit={(e) => handleSubmit(e)}>
         <div className="cont-1">
           <TextField
             id="outlined-basic"
@@ -286,12 +288,7 @@ export default function Product_form_create(props) {
       </form>
 
       <NavLink to="/user/info">
-        <Button
-          id="volverboton"
-          className={classes.button}
-          variant="contained"
-          color="primary"
-        >
+        <Button id='volverboton' className={classes.button} variant="contained" color="primary">
           Volver
         </Button>
       </NavLink>

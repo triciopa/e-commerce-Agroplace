@@ -9,6 +9,8 @@ import {
 import Swal from 'sweetalert2';
 import swal from 'sweetalert';
 import {
+  GLogin,
+  FLogin,
   LoginAction,
   LogOut,
   LogFailHandle,
@@ -28,7 +30,7 @@ import { Link } from 'react-router-dom';
 import DoubleAuth from './DoubleAuth';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-const Signup = () => {
+export default function Signup() {
   const dispatch = useDispatch();
   const history = useHistory();
   const log = useSelector((state) => state.loginReducer);
@@ -111,11 +113,16 @@ const Signup = () => {
   }
 
   const sessionChange = (e) => {
-    return e.target.name === 'uname'
-      ? setUsername(e.target.value)
-      : e.target.name === 'psw'
-      ? setPassword(e.target.value)
-      : () => {};
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+    setErrors(
+      validateLogin({
+        ...input,
+        [e.target.name]: e.target.value,
+      })
+    );
   };
   const sessionSubmit = async (e) => {
     e.preventDefault();
@@ -127,7 +134,6 @@ const Signup = () => {
     async function test() {
       if (log.isLogin) {
         const userId = localStorage.getItem('user');
-
         history.push({
           pathname: '/',
         });
@@ -136,19 +142,23 @@ const Signup = () => {
         const data = await axios.get(
           `http://localhost:3001/cart/${userId}/cart`
         );
-        const products = await axios.get('http://localhost:3001/products');
+        //const products = await axios.get("http://localhost:3001/products");
         const productsId = data.data.map((x) => x.productId);
-        const cartSaved = products.data.filter((x) =>
-          productsId.includes(x.id)
-        );
-        dispatch(userLogged(cartSaved));
+        const reduxCart = productCart.map((x) => x.id);
+        const unicId = productsId.concat(reduxCart);
+        let unic = [...new Set(unicId)];
+        const cartSaved = products.filter((x) => unic.includes(x.id));
+
+        dispatch(emptyCart());
 
         for (let i = 0; i < cartSaved.length; i++) {
           dispatch(modifyCart({ [`Cart-${cartSaved[i].id}`]: true }));
+          dispatch(addProduct(cartSaved[i]));
         }
       }
     }
     test();
+    
   }, [log.isLogin, dispatch]);
 
   useEffect(() => {
@@ -159,7 +169,7 @@ const Signup = () => {
         text: log.error,
         confirmButtonColor: '#378a19',
       });
-      setActivate(true);
+      setActivate(true)
       dispatch(LogFailHandle());
     }
   }, [log.errorLogin]);
@@ -183,7 +193,32 @@ const Signup = () => {
     lastName: '',
     email: '',
     password: '',
+    confirmPassword: '',
   });
+  const [errorsCreate, setErrorsCreate] = useState({});
+  function validateCreate(user) {
+    let errors = {};
+    if (!user.email) {
+      errors.username = 'Email es requerido';
+    } else if (!/\S+@\S+\.\S+/.test(user.email)) {
+      errors.email = 'Email no es valido';
+    }
+    if (!user.password) {
+      errors.password = 'Contrseña es requerida';
+    } else if (
+      !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(user.password)
+    ) {
+      errors.password = "Debe contener 'a' 'A' '1' !' y largo 8 ";
+    }
+    if (!user.confirmPassword) {
+      errors.confirmPassword = 'Contrseña es requerida';
+    } else if (user.password !== user.confirmPassword) {
+      errors.confirmPassword = 'Las contraseñas no coinciden';
+    }
+
+    return errors;
+  }
+
   const signUpButton = () => {
     setShow('right-panel-active');
   };
@@ -191,22 +226,29 @@ const Signup = () => {
     setShow(null);
   };
 
-  const handleChange = (e) => {
+  const userChange = (e) => {
     setUser({
       ...user,
       [e.target.name]: e.target.value,
     });
+    setErrorsCreate(
+      validateCreate({
+        ...user,
+        [e.target.name]: e.target.value,
+      })
+    );
   };
 
-  const handlesubmit = (e) => {
+  const userSubmit = (e) => {
     e.preventDefault();
     if (
       user.firstName.length &&
       user.lastName.length &&
-      user.email.length &&
-      user.password.length
+      !errorsCreate.email &&
+      !errorsCreate.password &&
+      !errorsCreate.confirmPassword
     ) {
-      dispatch(postUser(user));
+      if (user.password === user.confirmPassword) dispatch(postUser(user));
     }
   };
 
@@ -216,12 +258,14 @@ const Signup = () => {
         title: 'Listo, El usuario ha sido creado',
         confirmButtonColor: '#378a19',
       });
+
       dispatch(PostSuccess());
       setUser({
         firstName: '',
         lastName: '',
         email: '',
         password: '',
+        confirmPassword: '',
       });
     }
   }, [post.success]);
@@ -419,6 +463,4 @@ const Signup = () => {
       )}
     </div>
   );
-};
-
-export default Signup;
+}
