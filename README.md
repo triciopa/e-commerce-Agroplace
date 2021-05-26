@@ -1,6 +1,6 @@
 # Group Project - Agricultural e-commerce
 
-<img height="200" src="https://spoonacular.com/application/frontend/images/food-api/dough.jpg" align="right"/>  
+<img height="200" src="https://raw.githubusercontent.com/triciopa/e-commerce-Agroplace/main/demo-img/tractor.png" align="right"/>  
 
 <p>You can see a tour inside this app, following the next video:</p>
 
