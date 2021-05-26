@@ -4,7 +4,7 @@ const {
   OrderDetail,
   Product,
   PaymentMethod,
-} = require("../../db");
+} = require('../../db');
 
 module.exports = async (req, res, next) => {
   let id = req.params.id;
@@ -17,27 +17,27 @@ module.exports = async (req, res, next) => {
         {
           model: Order,
           attributes: [
-            "id",
-            "state",
-            "createdAt",
-            "updatedAt",
-            "totalPrice",
-            "address",
+            'id',
+            'state',
+            'createdAt',
+            'updatedAt',
+            'totalPrice',
+            'address',
           ],
           include: [
             {
               model: OrderDetail,
-              attributes: ["id", "quantity", "unitPrice"],
+              attributes: ['id', 'quantity', 'unitPrice'],
               include: [
                 {
                   model: Product,
-                  attributes: ["id", "name", "picture", "unitPrice"],
+                  attributes: ['id', 'name', 'picture', 'unitPrice'],
                 },
               ],
             },
             {
               model: PaymentMethod,
-              attributes: ["type"],
+              attributes: ['type'],
             },
           ],
         },
@@ -45,7 +45,7 @@ module.exports = async (req, res, next) => {
     });
     return res.json(
       data.orders.filter((order) => {
-        return ["created", "processing", "completed", "cancelled"].includes(
+        return ['created', 'processing', 'completed', 'cancelled'].includes(
           order.state
         );
       })

@@ -53,8 +53,8 @@ export function UserScreen() {
       dispatch(LogOut());
       dispatch(emptyCart());
       dispatch(reset());
-      Swal.fire('Se ha cerrado sesión');
-      localStorage.removeItem('user');
+      alert('Se cerró sesión');
+      localStorage.setItem('user', 0);
     }
   };
 

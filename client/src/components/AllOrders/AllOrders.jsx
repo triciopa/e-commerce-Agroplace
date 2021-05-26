@@ -33,7 +33,6 @@ function AllOrders(){
     async function getOrderHistory(){
         let data = await axios.get(`http://localhost:3001/orders?created=${filter.created}&processing=${filter.processing}&completed=${filter.completed}&cancelled=${filter.cancelled}`);
         setOrders(data.data); 
-        console.log(data.data, "ORDENES AllOrders.jsx");
     }
 
     useEffect(() => {

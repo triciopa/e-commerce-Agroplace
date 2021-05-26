@@ -9,8 +9,6 @@ import {
 import Swal from 'sweetalert2';
 import swal from 'sweetalert';
 import {
-  GLogin,
-  FLogin,
   LoginAction,
   LogOut,
   LogFailHandle,
@@ -30,7 +28,7 @@ import { Link } from 'react-router-dom';
 import DoubleAuth from './DoubleAuth';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-export default function Signup() {
+const Signup = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const log = useSelector((state) => state.loginReducer);
@@ -113,16 +111,11 @@ export default function Signup() {
   }
 
   const sessionChange = (e) => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
-    setErrors(
-      validateLogin({
-        ...input,
-        [e.target.name]: e.target.value,
-      })
-    );
+    return e.target.name === 'uname'
+      ? setUsername(e.target.value)
+      : e.target.name === 'psw'
+      ? setPassword(e.target.value)
+      : () => {};
   };
   const sessionSubmit = async (e) => {
     e.preventDefault();
@@ -134,6 +127,7 @@ export default function Signup() {
     async function test() {
       if (log.isLogin) {
         const userId = localStorage.getItem('user');
+
         history.push({
           pathname: '/',
         });
@@ -142,23 +136,19 @@ export default function Signup() {
         const data = await axios.get(
           `http://localhost:3001/cart/${userId}/cart`
         );
-        //const products = await axios.get("http://localhost:3001/products");
+        const products = await axios.get('http://localhost:3001/products');
         const productsId = data.data.map((x) => x.productId);
-        const reduxCart = productCart.map((x) => x.id);
-        const unicId = productsId.concat(reduxCart);
-        let unic = [...new Set(unicId)];
-        const cartSaved = products.filter((x) => unic.includes(x.id));
-
-        dispatch(emptyCart());
+        const cartSaved = products.data.filter((x) =>
+          productsId.includes(x.id)
+        );
+        dispatch(userLogged(cartSaved));
 
         for (let i = 0; i < cartSaved.length; i++) {
           dispatch(modifyCart({ [`Cart-${cartSaved[i].id}`]: true }));
-          dispatch(addProduct(cartSaved[i]));
         }
       }
     }
     test();
-    
   }, [log.isLogin, dispatch]);
 
   useEffect(() => {
@@ -169,7 +159,7 @@ export default function Signup() {
         text: log.error,
         confirmButtonColor: '#378a19',
       });
-      setActivate(true)
+      setActivate(true);
       dispatch(LogFailHandle());
     }
   }, [log.errorLogin]);
@@ -193,32 +183,7 @@ export default function Signup() {
     lastName: '',
     email: '',
     password: '',
-    confirmPassword: '',
   });
-  const [errorsCreate, setErrorsCreate] = useState({});
-  function validateCreate(user) {
-    let errors = {};
-    if (!user.email) {
-      errors.username = 'Email es requerido';
-    } else if (!/\S+@\S+\.\S+/.test(user.email)) {
-      errors.email = 'Email no es valido';
-    }
-    if (!user.password) {
-      errors.password = 'Contrseña es requerida';
-    } else if (
-      !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(user.password)
-    ) {
-      errors.password = "Debe contener 'a' 'A' '1' !' y largo 8 ";
-    }
-    if (!user.confirmPassword) {
-      errors.confirmPassword = 'Contrseña es requerida';
-    } else if (user.password !== user.confirmPassword) {
-      errors.confirmPassword = 'Las contraseñas no coinciden';
-    }
-
-    return errors;
-  }
-
   const signUpButton = () => {
     setShow('right-panel-active');
   };
@@ -226,29 +191,22 @@ export default function Signup() {
     setShow(null);
   };
 
-  const userChange = (e) => {
+  const handleChange = (e) => {
     setUser({
       ...user,
       [e.target.name]: e.target.value,
     });
-    setErrorsCreate(
-      validateCreate({
-        ...user,
-        [e.target.name]: e.target.value,
-      })
-    );
   };
 
-  const userSubmit = (e) => {
+  const handlesubmit = (e) => {
     e.preventDefault();
     if (
       user.firstName.length &&
       user.lastName.length &&
-      !errorsCreate.email &&
-      !errorsCreate.password &&
-      !errorsCreate.confirmPassword
+      user.email.length &&
+      user.password.length
     ) {
-      if (user.password === user.confirmPassword) dispatch(postUser(user));
+      dispatch(postUser(user));
     }
   };
 
@@ -258,14 +216,12 @@ export default function Signup() {
         title: 'Listo, El usuario ha sido creado',
         confirmButtonColor: '#378a19',
       });
-
       dispatch(PostSuccess());
       setUser({
         firstName: '',
         lastName: '',
         email: '',
         password: '',
-        confirmPassword: '',
       });
     }
   }, [post.success]);
@@ -463,4 +419,6 @@ export default function Signup() {
       )}
     </div>
   );
-}
+};
+
+export default Signup;
