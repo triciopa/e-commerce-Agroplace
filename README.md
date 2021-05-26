@@ -1,187 +1,74 @@
+# Group Project - Agricultural e-commerce
 
+<img height="200" src="https://spoonacular.com/application/frontend/images/food-api/dough.jpg" align="right"/>  
+
+<p>You can see a tour inside this app, following the next video:</p>
 
 >**Video URL:** https://www.youtube.com/watch?v=cXkNWNEK1So
 
+## How to use
 
-## Objetivos del Proyecto
-
-- Construir una App JavaScript desde cero.
-- Afirmar y conectar los conceptos aprendidos en la carrera.
-- Aprender mejores prácticas.
-- Aprender y practicar el workflow de GIT.
-- Utilizar Metodologías Ágiles.
-- Trabajar en equipo.
-- Usar y practicar testing.
-
-## Trabajo en Equipo
-
-En este proyecto, van a trabajar en equipo de 4 a 10 personas. Van a trabajar siempre en pares, al terminar una tarea, van a cambiar de pareja para llegar a trabajar con todos los compañeros.
-Ninguna tarea debería llevar más de dos días en terminar, si esto sucede contactar con tu PM.
-
-Vamos a usar **GIT** para gestionar el código y **Trello** para gestionar el proyecto y facilitar la colaboración. Recomendamos el siguiente *workflow* para una tarea dada:
-
-- Crear una Card de Trello para una tarea.
-- Asignar un equipo de dos para trabajar en la tarea.
-- Hacer un `branch` por cada card de trello (incluir el nombre o ID de la card en el nombre de la branch).
-- Codear en equipo hasta completar la tarea (con tests).
-- Pullear de master a nuestra branch (para mergear código nuevo de master).
-- Pushear nuestra Branch a git y hacer un `PR` indicando la Card que cierra.
-- Mover la Card de trello a `Review`.
-- Asignar a otro equipo de dos para que revise el `PR`.
-- Iterar hasta que no haya más comentarios:
-    + Si hay un comentario, el equipo original debe codear de nuevo la solución y volver a subir el código a github.
-    + Si no hay comentarios, se aprueba el `PR` y se mergea a master
-- Mergear el `PR` a master.
-- Volver al punto 1 hasta terminar el proyecto.
-
-## Horarios y Fechas
-
-El proyecto dura cinco semanas. El lunes siguiente al terminar el sprint se realiza una demo donde se muestra al TL el progreso de esa semana. La última semana tiene el `demo final` donde se muestra el proyecto a todo el cohorte.
-
-El horario de trabajo sigue siendo de 9AM a 18PM.
-Todos los días a un horario a definir con su TL habrá un STAND UP para revisar las tareas del día, el progreso y si están bloqueados y/o necesitan ayuda.
-
-## Comenzando
-
-Vamos iniciar clonando el repo de Github que se les indicará llamado: `ecommerce-ft{cohorte}-g{grupo}`. Donde vamos a invitar a todos colaboradores del proyecto.
-
-Nosotros te vamos a dar un `boilerplate` con los modelos de Usuario y el flow de autenticación funcionando. Sobre este código vas a branchear para empezar a agregar tus propias features.
-
-__IMPORTANTE:__ Es necesario contar minimamente con la última versión estable de Node y NPM. Asegurarse de contar con ella para poder instalar correctamente las dependecias necesarias para correr el proyecto.
-
-Actualmente las versiónes necesarias son:
-
- * __Node__: 12.18.3 o mayor
- * __NPM__: 6.14.16 o mayor
-
-Para verificar que versión tienen instalada:
-
-> node -v
->
-> npm -v
-
-## BoilerPlate
-
-El boilerplate cuenta con dos carpetas: `api` y `client`. En estas carpetas estará el código del back-end y el front-end respectivamente.
-
-En `api` vas a tener que crear un archivo llamado: `.env` que tenga la siguiente forma:
-
+1. Create a PostgreSQL database named as you please.
+2. Create an `.env` file inside `/api` with the following:
+```js
+// api/.env
+DB_USER = [your_user];
+DB_PASS = [your_pass];
+DB_HOST = localhost; // that's how you run this project in your local machine
+DB_PORT = 5432; // this is the default port in postgress, but maybe you've chosen another
+DB_NAME = [your_database_name];
 ```
-DB_USER=usuariodepostgres
-DB_PASSWORD=passwordDePostgres
-DB_HOST=localhost
+3. Set a secret key for JWT signature and obtain an `ID token`, also in `.env`:
+```js
+// api/.env
+SECRET = [your_secret]; //you can use base-64 characters
+```
+4. For Google social login accounts, create a Facebook and Google developer accounts and add to `.env`:
+```js
+// api/.env
+CLIENT_SECRET_FB=[value]
+CLIENT_ID_FB=[value]
+CALLBACK_URL_FB=[value]
+
+GOOGLE_CONSUMER_KEY=[value]
+GOOGLE_CONSUMER_SECRET=[value]
+GOOGLE_URL_CB=[value]
+```
+4.b Also it's required to create an `.env` file in `/client`, with the FB Client ID:
+```js
+// client/.env
+REACT_APP_CLIENT_ID_FB=[value]
+```
+>**WARNING:** To login with FB account in development mode, you can only use mock users given by FB. Also, make sure you have "REACT_APP_" prefix for every variable in the client side.
+
+5. In order to use nodemailer for receiving notifications (fulfilled orders, newsletter, etc.), also place an authorized Gmail account in `api/.env`:
+```js
+// api/.env
+user=[account]
+pass=[password]
 ```
 
-Tenés que reemplazar `usuariodepostgres` y `passwordDePostgres` con tus propias credenciales para conectarte a postgres. Este archivo va ser ignorado por github, ya que contiene información sensible (las credenciales).
+6. Install node modules with `npm i` in both directories `/api` and `/client`.
+7. Start both with `npm start`
 
-El contenido de `client` fue creado usando: Create React App.
+## Features
 
-### Requerimientos Mínimos para aprobar
+### Web Application based in:
 
-La aplicación del e-commerce va a contar con los siguientes requerimientos Mínimos:
+- React.js and Redux.js (Front-end)
+- Node.js and Express.js (Back-end)
+- PostgreSQL & Sequelize (Database).
 
-### Usuarios no Autenticados
+### Technologies
 
-Un Visitante anónimo debería poder navegar tu e-commerce, ver y buscar productos.
-
-###### Como un Guest yo quiero...
-
-- PRODUCTOS:
-    + ...ver la lista completa de productos (catálogo), para ver todo lo disponible para comprar.
-    + ...refinar el listado por categorías, para poder ver los items en los que estoy interesado.
-    + ...buscas productos, para poder encontrar rápido los productos que quiero comprar.
-    + ...ver los detalles de un producto individual (incluida las fotos, descripciones, reviews, etc...), asi puede determinar si quiero ese producto o no.
-
-- CARRITO:
-    + ...poder agregar items a mi carrito de compras desde el listado o desde a página de detalles de un producto, para poder comprarlos despues.
-    + ...sacar items de mi carrito, en caso que decida no quererlos.
-    + ...editar cantidades de los items de mi carrito, en caso que quiera mas o menos cantidad de un item en particular.
-    + ...refrescar la página, o irme y volver, y todavía tener mi carrito de compras (sin haberme creado una cuenta). (Podés usar sessionStorage, localStorage, cookies, o JWT).
-    + ...poder crearme una cuenta, loguearme y seguir editando ese mismo carrito, asi no pierdo los items seleccionados.
-- CHECKOUT:
-    + ...poder comprar todos los items de un mi carrito.
-    + ...especificar una dirección de envio y un email cuando hago el checkout, asi me envien la compra a lugar que dije.
-    + ...recibir un email de confirmación que hice la compra.
-    + ...recibir un email de notificación cuando la orden fue despachada.
-- GESTION DE CUENTA:
-    + ...poder crear una cuenta, asi puede hacer otras cosas como dejar un review.
-    + ...poder logearme usando Google o Github, para no tener que acordarme de un password nuevo.
-
-### Usuarios Autenticados
-
-Los usuarios que hayan creado su cuenta, podrán hacer todo lo que puede hacer un usuario guest y además:
-
-###### Como un Usuario Autenticado yo quiero...
-
-- GESTION DE CUENTA:
-    + ...poder desloguearme, asi nadie más pueda usar mi sesión.
-    + ...ver el historial de ordenes previas, asi puede reever las ordenes que hice en el pasado.
-    + ...ver los detalles de una orden que hice en el pasado, incluyendo:
-        * Los items comprados, con sus cantidades.
-        * Links a la página del producto comprado.
-        * Fecha y hora de la compra.
-- REVIEWS:
-    + ...poder dejar reviews a los productos, que incluyan texto y un sistema de cinco estrellas.
-
-### Admin
-
-Los usuarios administradores pueden manejar el sitio, los productos que se listan y los items que están disponibles.
-
-###### Como un administrador yo quiero...
-
-- GESTION DE PRODUCTOS:
-    + ...poder crear y editar productos, con nombre, descripción, precio y uno o más fotos, tal que los visitantes puedan ver la última información de lo que se vende.
-    + ...poder crear categorías, para que los usuarios puedan filtrar los items.
-    + ...poder agregar o sacar categorías de los items (los items deben poder aceptar múltiples categorías).
-    + ...gestionar la disponibilidad de un item. (un item que no esta disponible, no deberá estar listado en la página, pero su detalle debe seguir siendo accesible desde el historial de compras o con su URL, pero debe mencionar que el item no está disponible).
-
-- GESTION DE ORDENES:
-    + ...poder ver una lista de todas las ordenes, para poder ver y revisar las ordener.
-    + ...poder filtrar as ordenes por su estado (creada, procesando, cancelada, completa).
-    + ver los detalles de una orden específica, asi puedo revisarla y actualizar su estado.
-    + ...poder cambiar el estado de una orden (creada => procesando, procesando => cancelada || completa).
-
-- GESTION DE USUARIOS:
-    + ...poder hacer que un usuario se convierta en admin.
-    + ...borrar a un usuario, asi no puedan logearse más.
-    + ...forzar una password reset para un usuario.
-
-### Validación de Datos
-
-Cuando crees los modelos, debes considerar los tipos de datos que vas a recibir, qué cosas van a ser requeridas y cómo vas a devolver los errores a los usuarios.
-Algunas constrains qué deberás implementar:
-
-- Productos:
-    + Deben tener `titulo`, `descripcion`, `precio`, `cantidad`
-    + Deben pertenecer a por lo menos una categoría.
-    + Deben tener una foto, si no tienen una foto, deben tener un placeholder de foto por defecto.
-- Usuarios:
-    + Deben tener una dirección de mail válida.
-    + Su email debe ser único.
-- Ordenes:
-    + Una orden debe pertenecer a un usuario o a un guest (autenticado vs no autenticado).
-    + Las ordenes deben tener línea de orden que contiene el `precio`, `productId`, y `cantidad`.
-    + Si un usuario completa una orden, esa orden debe mantener el precio del item al momento de la compra, sin importar que el precio del producto cambie después.
-- Reviews:
-    + Todas las reviews deben pertenecer a un producto.
-    + Todas las reviews deben pertenecer a un usuario.
-    + Todas las reviews deben tener por lo menos x caractéres.
-
-### Milestones
-
-Este proyecto tiene muchas tareas para realizar, asi que es fácil sentirse abrumado. Pueden seguir este lineamiento para presentar lo mínimo:
-
-- Demo **1**: Catálogo de productos
-    + Los usuarios pueden ver los productos y filtrar por categoría.
-    + Los administradores pueden editar y agregar productos
-- Demo **2**:
-    + Los usuarios pueden buscar productos en el catálogo.
-    + El catálogo está paginado.
-    + Los usuarios tienen un carrito al que pueden agregar productos.
-- Demo **3**:
-    + Los usuarios pueden ver su historial de compras.
-    + Los usuarios tienen su carrito en cualquier device al que se logueen.
-- Demo **Final**:
-    + Los usuarios pueden hacer el checkout.
-    + Los admins pueden ver las ordenes pendientes.
-    + Los usuarios reciben mails de notificaciones.
+- [ ] React.js
+- [ ] Redux.js
+- [ ] SASS
+- [ ] MaterialUI
+- [ ] Cloudinary
+- [ ] Tensorflow.js
+- [ ] Express.js
+- [ ] Node.js
+- [ ] Passport
+- [ ] PostgreSQL
+- [ ] Sequelize
