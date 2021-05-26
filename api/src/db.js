@@ -3,10 +3,10 @@ const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 const subcategories = require('./data/subcategories');
-const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
+const { DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME } = process.env;
 
 const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/development`,
+  `postgres://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
   {
     logging: false, // set to console.log to see the raw SQL queries
     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
@@ -58,7 +58,7 @@ const {
   UnitsOnLocation,
   User,
   Wishlist,
-  Timeslots
+  Timeslots,
 } = sequelize.models;
 //console.log(sequelize.models)
 // Aca vendrian las relaciones
@@ -135,7 +135,6 @@ Promotion.belongsToMany(Product, { through: 'product_promotion' });
 
 Timeslots.belongsToMany(User, { through: 'user_timeslot' });
 Timeslots.belongsTo(Location);
-
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

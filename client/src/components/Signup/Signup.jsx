@@ -30,6 +30,8 @@ import { Link } from 'react-router-dom';
 import DoubleAuth from './DoubleAuth';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+const fbClientID = process.env.REACT_APP_CLIENT_ID_FB;
+
 export default function Signup() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -53,7 +55,7 @@ export default function Signup() {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
-      text: 'algo ha salido mal!',
+      text: 'No pudo hacer login con Google',
       confirmButtonColor: '#378a19',
     });
   };
@@ -65,7 +67,7 @@ export default function Signup() {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'algo ha salido mal!',
+        text: 'No pudo hacer login con Facebook',
         confirmButtonColor: '#378a19',
       });
     }
@@ -158,7 +160,6 @@ export default function Signup() {
       }
     }
     test();
-    
   }, [log.isLogin, dispatch]);
 
   useEffect(() => {
@@ -169,7 +170,7 @@ export default function Signup() {
         text: log.error,
         confirmButtonColor: '#378a19',
       });
-      setActivate(true)
+      setActivate(true);
       dispatch(LogFailHandle());
     }
   }, [log.errorLogin]);
@@ -370,7 +371,7 @@ export default function Signup() {
                       className="google-login-button"
                     />
                     <FacebookLogin
-                      appId="311325910426887"
+                      appId={fbClientID}
                       autoLoad={false}
                       fields="name,email,picture,first_name,last_name"
                       textButton="Facebook"
